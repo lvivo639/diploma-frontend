@@ -2,7 +2,6 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import authReducer from './auth';
-import supplierProductListReducer from './supplierProductList';
 import userReducer from './user';
 
 export const store = configureStore({
@@ -15,7 +14,6 @@ export const store = configureStore({
       authReducer,
     ),
     user: persistReducer({ key: 'user', storage }, userReducer),
-    supplierProductList: supplierProductListReducer,
   },
   middleware: getDefaultMiddleware({
     serializableCheck: false,

@@ -59,7 +59,7 @@ const RegisterScreen: React.FC = () => {
     >
       <Box border={1} p={3} width={500}>
         <Box py={2}>
-          <Typography variant="h1">
+          <Typography variant="h4">
             {intl.formatMessage(messages.title)}
           </Typography>
         </Box>

@@ -1,12 +1,14 @@
-import { CircularProgress, Grid } from '@material-ui/core';
+import { CircularProgress, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { RootState, SupplierSetting } from '../../../common/types';
 import { sendRequest } from '../../../store/auth';
 import SupplierCard from './../SupplierCard/index';
 
 const SupplierListScreen: React.FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const { currentUser } = useSelector((state: RootState) => state.user);
   const [supplierList, setSupplierList] = React.useState<
@@ -24,7 +26,7 @@ const SupplierListScreen: React.FC = () => {
         ),
       );
       setSupplierList(
-        response.data?.['supplier_settings'] || ([] as Array<SupplierSetting>),
+        (response.data?.['supplier_settings'] || []) as Array<SupplierSetting>,
       );
       setLoading(false);
     };
@@ -39,15 +41,19 @@ const SupplierListScreen: React.FC = () => {
         <>
           {supplierList.map((supplier) => (
             <Grid item>
-              <SupplierCard supplier={supplier} key={supplier.id} />
+              <SupplierCard
+                supplier={supplier}
+                key={supplier.id}
+                onSupplierClick={() => history.push(`/supplier/${supplier.id}`)}
+              />
             </Grid>
           ))}
         </>
       ) : (
-        <>
+        <Typography>
           Your list is empty. You need to accept invitation to get access to
           supplier storage
-        </>
+        </Typography>
       )}
     </Grid>
   );

@@ -12,11 +12,6 @@ const Root: React.FC = () => {
     (state: RootState) => state.user,
   );
 
-  // const onLogout = async () => {
-  //   await dispatch(resetUserState());
-  //   await dispatch(resetAuthState());
-  // };
-
   if (error) return <ErrorScreen text={error} />;
 
   if (isLoading) return <CircularProgress />;
