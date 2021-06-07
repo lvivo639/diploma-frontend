@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import Navbar from '../../Unknown/Navbar';
 import CartScreen from '../CartScreen';
 import DropshipperProductListScreen from '../DropshipperProductListScreen';
+import OrderListScreen from '../OrderListScreen';
 import OrderScreen from '../OrderScreen';
 import AcceptInvitationScreen from './../AcceptInvitationScreen/index';
 import SupplierListScreen from './../SupplierListScreen/index';
@@ -18,6 +19,11 @@ const DropshipperRoot: React.FC = () => {
         <Box bgcolor="#efefef" p={3.5} minHeight="100vh" boxSizing="border-box">
           <Box p={2}>
             <Switch>
+              <Route
+                exact
+                path="/invite/:inviteCode"
+                component={AcceptInvitationScreen}
+              />
               <Route
                 exact
                 path="/"
@@ -36,6 +42,7 @@ const DropshipperRoot: React.FC = () => {
     { label: 'Suppliers', link: '/', onClick: () => setSupplierId(undefined) },
     { label: 'Products', link: `/supplier/${supplierId}` },
     { label: 'Cart', link: `/supplier/${supplierId}/cart` },
+    { label: 'My orders', link: `/supplier/${supplierId}/myOrders` },
   ];
 
   return (
@@ -44,6 +51,11 @@ const DropshipperRoot: React.FC = () => {
       <Box bgcolor="#efefef" p={3.5} minHeight="100vh" boxSizing="border-box">
         <Box p={2}>
           <Switch>
+            <Route
+              exact
+              path="/supplier/:supplierId/myOrders"
+              component={OrderListScreen}
+            />
             <Route
               exact
               path="/supplier/:supplierId/cart/order"

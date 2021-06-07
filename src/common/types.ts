@@ -51,6 +51,7 @@ export interface Product {
   name: string;
   image: UploadedFile;
   description: string;
+  category?: string;
   price: number;
   oldPrice: number;
   count: number;
@@ -84,11 +85,13 @@ export interface ProductOrder {
   count: number;
 }
 
+export type OrderStatus = 'packaging' | 'sent' | 'received' | 'sentBack';
 export interface Order {
+  id: number;
   productOrders: Array<ProductOrder>;
   address: string;
   price: number;
   fullName: string;
   description: string;
-  status: boolean;
+  status: OrderStatus;
 }
