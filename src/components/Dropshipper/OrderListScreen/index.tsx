@@ -60,6 +60,7 @@ const mockList: Array<Order> = [
     description: 'description',
     price: 12,
     status: 'packaging',
+    deliveryCost: 50,
   },
   {
     id: 1,
@@ -69,6 +70,7 @@ const mockList: Array<Order> = [
     description: 'description',
     price: 12,
     status: 'sent',
+    deliveryCost: 50,
   },
   {
     id: 1,
@@ -78,6 +80,7 @@ const mockList: Array<Order> = [
     description: 'description',
     price: 12,
     status: 'received',
+    deliveryCost: 50,
   },
   {
     id: 1,
@@ -87,13 +90,14 @@ const mockList: Array<Order> = [
     description: 'description',
     price: 12,
     status: 'sentBack',
+    deliveryCost: 50,
   },
 ];
 
 const OrderListScreen: React.FC = () => {
   const classes = useStyles();
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} className={classes.root}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -102,6 +106,7 @@ const OrderListScreen: React.FC = () => {
             <TableCell>Products</TableCell>
             <TableCell>Address</TableCell>
             <TableCell>Price</TableCell>
+            <TableCell>DeliveryCost</TableCell>
             <TableCell>Supplier price</TableCell>
             <TableCell>Full Name</TableCell>
             <TableCell>Description</TableCell>
@@ -121,6 +126,7 @@ const OrderListScreen: React.FC = () => {
               </TableCell>
               <TableCell>{mock.address}</TableCell>
               <TableCell>{getPrice(mock)}</TableCell>
+              <TableCell>{mock.deliveryCost}</TableCell>
               <TableCell>{mock.price}</TableCell>
               <TableCell>{mock.fullName}</TableCell>
               <TableCell>{mock.description}</TableCell>

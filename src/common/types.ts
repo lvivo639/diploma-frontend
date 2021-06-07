@@ -1,7 +1,6 @@
 export type RootState = {
   auth: AuthState;
   user: UserState;
-  supplierProductList: SupplierProductListState;
 };
 
 export type Token = {
@@ -23,21 +22,17 @@ export type UserState = {
   error: string;
 };
 
-export type SupplierProductListState = {
-  productList: Array<Product>;
-  isLoading: boolean;
-  error: string;
-};
-
 export interface User {
   id: number;
+  firstName: string;
+  lastName: string;
   username: string;
   email: string;
   password: string;
   role: Role;
   created_at: string;
   supplier_setting?: SupplierSetting;
-  dropshipper_setting?: DropshipperSettings;
+  dropshipper_setting?: DropshipperSetting;
 }
 
 export interface Role {
@@ -70,12 +65,18 @@ export interface SupplierSetting {
   description: string;
   users_permissions_user: number;
   header: UploadedFile;
+  uniqueHash: string;
 }
 
-export interface DropshipperSettings {
+export interface DropshipperSetting {
   id: number;
   users_permissions_user: number;
   supplier_settings: Array<SupplierSetting>;
+  telegramUsername?: string;
+  telegramId?: number;
+  telegramCode?: string;
+  phoneNumber?: string;
+  cardNumber?: string;
 }
 
 export interface ProductOrder {
@@ -94,4 +95,11 @@ export interface Order {
   fullName: string;
   description: string;
   status: OrderStatus;
+  deliveryCost: number;
+}
+
+export interface Payment {
+  id: number;
+  paymentTime: number | undefined;
+  cost: number;
 }

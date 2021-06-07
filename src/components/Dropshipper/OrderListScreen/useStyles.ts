@@ -1,8 +1,12 @@
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
+  root: {
+    width: '100%',
+    overflowX: 'auto',
+  },
   table: {
-    minWidth: 650,
+    minWidth: 1200,
   },
   packaging: {
     backgroundColor: '#1d3557',

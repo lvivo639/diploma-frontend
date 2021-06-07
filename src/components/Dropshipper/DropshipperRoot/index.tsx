@@ -2,6 +2,7 @@ import { Box } from '@material-ui/core';
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Navbar from '../../Unknown/Navbar';
+import BalanceScreen from '../BalanceScreen';
 import CartScreen from '../CartScreen';
 import DropshipperProductListScreen from '../DropshipperProductListScreen';
 import OrderListScreen from '../OrderListScreen';
@@ -15,7 +16,7 @@ const DropshipperRoot: React.FC = () => {
   if (supplierId === undefined)
     return (
       <>
-        <Navbar tabList={[]} disableProfile />
+        <Navbar tabList={[]} />
         <Box bgcolor="#efefef" p={3.5} minHeight="100vh" boxSizing="border-box">
           <Box p={2}>
             <Switch>
@@ -42,7 +43,8 @@ const DropshipperRoot: React.FC = () => {
     { label: 'Suppliers', link: '/', onClick: () => setSupplierId(undefined) },
     { label: 'Products', link: `/supplier/${supplierId}` },
     { label: 'Cart', link: `/supplier/${supplierId}/cart` },
-    { label: 'My orders', link: `/supplier/${supplierId}/myOrders` },
+    { label: 'Orders', link: `/supplier/${supplierId}/orders` },
+    { label: 'Balance', link: `/supplier/${supplierId}/balance` },
   ];
 
   return (
@@ -53,7 +55,12 @@ const DropshipperRoot: React.FC = () => {
           <Switch>
             <Route
               exact
-              path="/supplier/:supplierId/myOrders"
+              path="/supplier/:supplierId/balance"
+              component={BalanceScreen}
+            />
+            <Route
+              exact
+              path="/supplier/:supplierId/orders"
               component={OrderListScreen}
             />
             <Route
