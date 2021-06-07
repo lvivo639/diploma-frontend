@@ -35,8 +35,6 @@ export interface User {
   email: string;
   password: string;
   role: Role;
-  first_name: string;
-  last_name: string;
   created_at: string;
   supplier_setting?: SupplierSetting;
   dropshipper_setting?: DropshipperSettings;
@@ -77,4 +75,20 @@ export interface DropshipperSettings {
   id: number;
   users_permissions_user: number;
   supplier_settings: Array<SupplierSetting>;
+}
+
+export interface ProductOrder {
+  id: number;
+  product: Product;
+  price: number;
+  count: number;
+}
+
+export interface Order {
+  productOrders: Array<ProductOrder>;
+  address: string;
+  price: number;
+  fullName: string;
+  description: string;
+  status: boolean;
 }

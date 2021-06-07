@@ -1,21 +1,46 @@
-import { AppBar, Box, Button, Tab, Tabs } from '@material-ui/core';
+import {
+  AppBar,
+  Box,
+  Button,
+  Menu,
+  MenuItem,
+  Tab,
+  Tabs,
+} from '@material-ui/core';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { RootState } from '../../../common/types';
 import { resetAuthState } from '../../../store/auth';
 import { resetUserState } from '../../../store/user';
 
 type NavbarProps = {
-  tabList: Array<{ label: string; link: string }>;
+  tabList: Array<{ label: string; link: string; onClick?: () => void }>;
+  disableProfile?: boolean;
 };
 
-const Navbar: React.FC<NavbarProps> = ({ tabList }) => {
+const Navbar: React.FC<NavbarProps> = ({ tabList, disableProfile = false }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const [currentValue, setCurrentValue] = React.useState('/');
+  const { currentUser } = useSelector((state: RootState) => state.user);
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const onChange = (event: React.ChangeEvent<{}>, value: any) => {
+    const selectedTab = tabList.find((tab) => tab.link === value);
+    if (selectedTab && selectedTab.onClick) {
+      selectedTab.onClick();
+    }
     history.push(value);
     setCurrentValue(value);
   };
@@ -33,7 +58,25 @@ const Navbar: React.FC<NavbarProps> = ({ tabList }) => {
             <Tab label={tab.label} key={tab.label} value={tab.link} />
           ))}
         </Tabs>
-        <Button onClick={onLogout}>Log out</Button>
+        <Button
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+        >
+          {currentUser?.username}
+        </Button>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          {!disableProfile && (
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
+          )}
+          <MenuItem onClick={onLogout}>Log out</MenuItem>
+        </Menu>
       </Box>
     </AppBar>
   );

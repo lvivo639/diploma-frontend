@@ -6,7 +6,13 @@ import { RootState, SupplierSetting } from '../../../common/types';
 import { sendRequest } from '../../../store/auth';
 import SupplierCard from './../SupplierCard/index';
 
-const SupplierListScreen: React.FC = () => {
+type SupplierListScreenProps = {
+  setSupplierId: (id: number) => void;
+};
+
+const SupplierListScreen: React.FC<SupplierListScreenProps> = ({
+  setSupplierId,
+}) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -44,7 +50,10 @@ const SupplierListScreen: React.FC = () => {
               <SupplierCard
                 supplier={supplier}
                 key={supplier.id}
-                onSupplierClick={() => history.push(`/supplier/${supplier.id}`)}
+                onSupplierClick={() => {
+                  setSupplierId(supplier.id);
+                  history.push(`/supplier/${supplier.id}`);
+                }}
               />
             </Grid>
           ))}
