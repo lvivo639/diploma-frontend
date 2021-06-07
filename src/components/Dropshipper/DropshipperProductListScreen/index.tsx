@@ -1,4 +1,4 @@
-import { CircularProgress, Grid } from '@material-ui/core';
+import { Box, CircularProgress, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
@@ -34,19 +34,21 @@ const DropshipperProductListScreen: React.FC = () => {
 
   return (
     <>
-      <Grid container spacing={2} justify="center">
-        {productList.length ? (
-          <>
-            {productList.map((product) => (
-              <Grid item>
-                <DropshipperProductCard product={product} key={product.id} />
-              </Grid>
-            ))}
-          </>
-        ) : (
-          <>Product list of this supplier is empty</>
-        )}
-      </Grid>
+      <Box mb={4}>
+        <Typography variant="h3">Supplier product list</Typography>
+        <Typography>Add products to cart to create an order</Typography>
+      </Box>
+      {productList.length ? (
+        <Grid container spacing={2} justify="flex-start">
+          {productList.map((product) => (
+            <Grid item>
+              <DropshipperProductCard product={product} key={product.id} />
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <>Product list of this supplier is empty</>
+      )}
     </>
   );
 };

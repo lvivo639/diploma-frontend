@@ -1,4 +1,4 @@
-import { Box, Button } from '@material-ui/core';
+import { Box, Button, Typography } from '@material-ui/core';
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { ProductOrder } from '../../../common/types';
@@ -98,6 +98,10 @@ const OrderScreen: React.FC = () => {
 
   return (
     <>
+      <Box mb={4}>
+        <Typography variant="h3">Create an order</Typography>
+        <Typography>Fill form to create an order</Typography>
+      </Box>
       <Button onClick={backToCart} variant="outlined">
         Back to Cart
       </Button>

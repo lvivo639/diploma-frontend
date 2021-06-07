@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   tableRoot: {
-    width: 300,
+    maxWidth: 400,
   },
   paid: {
     backgroundColor: '#a8dadc',

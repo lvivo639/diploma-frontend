@@ -1,3 +1,4 @@
+import { CardActionArea } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -10,6 +11,7 @@ import React from 'react';
 import getImageUrl from './../../../common/getImageUrl';
 import { SupplierSetting } from './../../../common/types';
 import useStyles from './useStyles';
+
 type SupplierCardProps = {
   supplier: SupplierSetting;
   onSupplierClick: () => void;
@@ -23,21 +25,23 @@ const SupplierCard: React.FC<SupplierCardProps> = ({
 
   return (
     <Card className={classes.root}>
-      <CardHeader title={supplier.storageName} />
-      <CardMedia
-        image={getImageUrl(supplier.header?.url)}
-        className={classes.media}
-      />
-      <CardContent>
-        <Typography color="textSecondary" component="p">
-          {supplier.description}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton>
-          <ArrowRightAltIcon onClick={onSupplierClick} />
-        </IconButton>
-      </CardActions>
+      <CardActionArea onClick={onSupplierClick}>
+        <CardHeader title={supplier.storageName} />
+        <CardMedia
+          image={getImageUrl(supplier.header?.url)}
+          className={classes.media}
+        />
+        <CardContent>
+          <Typography color="textSecondary" component="p">
+            {supplier.description}
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton>
+            <ArrowRightAltIcon onClick={onSupplierClick} />
+          </IconButton>
+        </CardActions>
+      </CardActionArea>
     </Card>
   );
 };

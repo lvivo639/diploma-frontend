@@ -1,4 +1,4 @@
-import { CircularProgress, Grid, Typography } from '@material-ui/core';
+import { Box, CircularProgress, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -42,9 +42,16 @@ const SupplierListScreen: React.FC<SupplierListScreenProps> = ({
   if (loading) return <CircularProgress />;
 
   return (
-    <Grid container spacing={2} justify="center">
+    <>
+      <Box mb={4}>
+        <Typography variant="h3">Your supplier list</Typography>
+        <Typography>
+          Click on supplier card to watch product list, your orders, balance and
+          supplier settings.
+        </Typography>
+      </Box>
       {supplierList.length ? (
-        <>
+        <Grid container spacing={2} justify="flex-start">
           {supplierList.map((supplier) => (
             <Grid item>
               <SupplierCard
@@ -57,14 +64,14 @@ const SupplierListScreen: React.FC<SupplierListScreenProps> = ({
               />
             </Grid>
           ))}
-        </>
+        </Grid>
       ) : (
         <Typography>
           Your list is empty. You need to accept invitation to get access to
           supplier storage
         </Typography>
       )}
-    </Grid>
+    </>
   );
 };
 

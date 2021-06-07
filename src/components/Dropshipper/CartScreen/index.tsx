@@ -118,6 +118,10 @@ const CartScreen: React.FC = () => {
 
   return (
     <>
+      <Box mb={4}>
+        <Typography variant="h3">Your cart</Typography>
+        <Typography>Add some products to create an order.</Typography>
+      </Box>
       {productOrderList.length ? (
         <>
           <Box mb={2}>
@@ -126,7 +130,7 @@ const CartScreen: React.FC = () => {
             </Button>
           </Box>
 
-          <Grid container spacing={2} justify="center">
+          <Grid container spacing={2} justify="flex-start">
             {productOrderList.map((productOrder) => (
               <Grid item>
                 <CartProductCard
@@ -139,9 +143,7 @@ const CartScreen: React.FC = () => {
           </Grid>
         </>
       ) : (
-        <Typography>
-          Your cart list is empty. Add some products to create an order.
-        </Typography>
+        <Typography>Your cart list is empty.</Typography>
       )}
     </>
   );

@@ -47,14 +47,15 @@ const BalanceScreen: React.FC = () => {
   };
   return (
     <>
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="bottom"
-        mb={2}
-      >
-        <Typography variant="h3">Your Balance: {balance}</Typography>
-        <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box mb={4}>
+        <Typography variant="h3">Your Balance: {balance} UAH</Typography>
+        <Typography>
+          Payment requests history. Here you also can create new one
+        </Typography>
+      </Box>
+
+      <Box display="flex" justifyContent="space-between" mb={2}>
+        <Box>
           <TextField
             value={paymentReq}
             label="Payment request"
@@ -62,40 +63,42 @@ const BalanceScreen: React.FC = () => {
             variant="outlined"
             onChange={onPaymentRequestChange}
           />
-          <Box ml={1}>
+          <Box mt={2}>
             <Button variant="outlined">Create</Button>
           </Box>
         </Box>
-      </Box>
-      <TableContainer component={Paper} className={classes.tableRoot}>
-        <TableContainer aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Payment Date</TableCell>
-              <TableCell>Cost</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {mockList.map((mock) => (
-              <TableRow key={mock.id}>
-                <TableCell component="th" scope="row">
-                  {mock.id}
-                </TableCell>
-                <TableCell
-                  className={mock.paymentTime ? classes.paid : classes.notPaid}
-                >
-                  {mock.paymentTime
-                    ? format(mock.paymentTime, 'dd/MM/yyyy HH:mm')
-                    : 'Not paid'}
-                </TableCell>
-
-                <TableCell>{mock.cost}</TableCell>
+        <TableContainer component={Paper} className={classes.tableRoot}>
+          <TableContainer aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>Payment Date</TableCell>
+                <TableCell>Amount</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
+            </TableHead>
+            <TableBody>
+              {mockList.map((mock) => (
+                <TableRow key={mock.id}>
+                  <TableCell component="th" scope="row">
+                    {mock.id}
+                  </TableCell>
+                  <TableCell
+                    className={
+                      mock.paymentTime ? classes.paid : classes.notPaid
+                    }
+                  >
+                    {mock.paymentTime
+                      ? format(mock.paymentTime, 'dd/MM/yyyy HH:mm')
+                      : 'Not paid'}
+                  </TableCell>
+
+                  <TableCell>{mock.cost} UAH</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </TableContainer>
         </TableContainer>
-      </TableContainer>
+      </Box>
     </>
   );
 };
