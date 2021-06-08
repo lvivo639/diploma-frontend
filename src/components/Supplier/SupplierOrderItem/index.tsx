@@ -67,10 +67,10 @@ const SupplierOrderItem: React.FC<SupplierOrderItemProps> = ({
         )}
       </TableCell>
       <TableCell>
-        <ProductListCell productOrders={order.productOrders} />
+        <ProductListCell productOrders={order.product_orders} />
       </TableCell>
       <TableCell>{order.address}</TableCell>
-      <TableCell>{getPrice(order)}</TableCell>
+      <TableCell>{getPrice(order?.product_orders || [])}</TableCell>
 
       <TableCell>{order.price}</TableCell>
       <TableCell>{order.fullName}</TableCell>

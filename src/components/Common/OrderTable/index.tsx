@@ -20,8 +20,8 @@ const OrderTable: React.FC = ({ children }) => {
             <TableCell>Status</TableCell>
             <TableCell>Products</TableCell>
             <TableCell>Address</TableCell>
-            <TableCell>Price</TableCell>
             <TableCell>Supplier Price</TableCell>
+            <TableCell>Price</TableCell>
             <TableCell>Full Name</TableCell>
             <TableCell>Description</TableCell>
           </TableRow>

@@ -7,7 +7,7 @@ import SupplierOrderItem from '../SupplierOrderItem/index';
 const orderList: Array<Order> = [
   {
     id: 1,
-    productOrders: [
+    product_orders: [
       {
         id: 1,
         product: {
@@ -55,7 +55,7 @@ const orderList: Array<Order> = [
   },
   {
     id: 1,
-    productOrders: [],
+    product_orders: [],
     address: 'address',
     fullName: 'fullName',
     description: 'description',
@@ -64,7 +64,7 @@ const orderList: Array<Order> = [
   },
   {
     id: 1,
-    productOrders: [],
+    product_orders: [],
     address: 'address',
     fullName: 'fullName',
     description: 'description',
@@ -73,7 +73,7 @@ const orderList: Array<Order> = [
   },
   {
     id: 1,
-    productOrders: [],
+    product_orders: [],
     address: 'address',
     fullName: 'fullName',
     description: 'description',

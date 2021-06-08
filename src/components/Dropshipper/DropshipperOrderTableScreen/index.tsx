@@ -1,88 +1,46 @@
+import { CircularProgress } from '@material-ui/core';
 import React from 'react';
-import { Order } from '../../../common/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import errorToString from '../../../common/errorToString';
+import { Order, RootState } from '../../../common/types';
+import { sendRequest } from '../../../store/auth';
 import OrderTable from '../../Common/OrderTable';
 import BasicPaper from '../../Unknown/BasicPaper';
+import InfoSnackbar from '../../Unknown/InfoSnackbar';
 import DropshipperOrderItem from './../DropshipperOrderItem/index';
 
-const orderList: Array<Order> = [
-  {
-    id: 1,
-    productOrders: [
-      {
-        id: 1,
-        product: {
-          id: 1,
-          name: 'id',
-          image: {
-            _id: '1',
-            name: 'a',
-            url: '/11111111',
-          },
-          description: 'asdsdfa',
-          price: 1,
-          oldPrice: 1,
-          count: 2,
-          suplier_setting_id: 1,
-        },
-        price: 135,
-        count: 1,
-      },
-      {
-        id: 1,
-        product: {
-          id: 1,
-          name: 'id',
-          image: {
-            _id: '1',
-            name: 'a',
-            url: '/11111111',
-          },
-          description: 'asdsdfa',
-          price: 1,
-          oldPrice: 1,
-          count: 2,
-          suplier_setting_id: 1,
-        },
-        price: 135,
-        count: 1,
-      },
-    ],
-    address: 'address',
-    fullName: 'fullName',
-    description: 'description',
-    price: 12,
-    status: 'packaging',
-  },
-  {
-    id: 1,
-    productOrders: [],
-    address: 'address',
-    fullName: 'fullName',
-    description: 'description',
-    price: 12,
-    status: 'sent',
-  },
-  {
-    id: 1,
-    productOrders: [],
-    address: 'address',
-    fullName: 'fullName',
-    description: 'description',
-    price: 12,
-    status: 'received',
-  },
-  {
-    id: 1,
-    productOrders: [],
-    address: 'address',
-    fullName: 'fullName',
-    description: 'description',
-    price: 12,
-    status: 'sentBack',
-  },
-];
-
 const DropshipperOrderTableScreen: React.FC = () => {
+  const dispatch = useDispatch();
+  const { supplierId } = useParams<{ supplierId: string }>();
+
+  const { currentUser } = useSelector((state: RootState) => state.user);
+  const [orderList, setOrderList] = React.useState<Array<Order>>([]);
+  const [loading, setLoading] = React.useState(false);
+  const [snackbarText, setSnackbarText] = React.useState('');
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      setSnackbarText('');
+      setLoading(true);
+      try {
+        const response: any = await dispatch(
+          sendRequest('get', `/orders/my`, null, {
+            supplier_setting_id: supplierId,
+            dropshipper_setting_id: currentUser?.dropshipper_setting?.id,
+          }),
+        );
+        setOrderList((response?.data || []) as Array<Order>);
+      } catch (e) {
+        setSnackbarText(errorToString(e));
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, [currentUser, dispatch, supplierId]);
+
+  if (loading) return <CircularProgress />;
+
   return (
     <BasicPaper title="Orders" subtitle="Order history">
       <OrderTable>
@@ -90,6 +48,7 @@ const DropshipperOrderTableScreen: React.FC = () => {
           <DropshipperOrderItem order={order} />
         ))}
       </OrderTable>
+      <InfoSnackbar text={snackbarText} setText={setSnackbarText} />
     </BasicPaper>
   );
 };

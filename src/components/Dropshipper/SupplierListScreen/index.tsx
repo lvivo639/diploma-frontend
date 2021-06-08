@@ -51,10 +51,9 @@ const SupplierListScreen: React.FC<SupplierListScreenProps> = ({
       {supplierList.length ? (
         <Grid container spacing={2} justify="flex-start">
           {supplierList.map((supplier) => (
-            <Grid item>
+            <Grid item key={supplier.id}>
               <SupplierCard
                 supplier={supplier}
-                key={supplier.id}
                 onSupplierClick={() => {
                   setSupplierId(supplier.id);
                   history.push(`/supplier/${supplier.id}`);

@@ -58,7 +58,7 @@ const OrderScreen: React.FC = () => {
         }),
       );
       setLoading(false);
-      // history.push(`/supplier/${supplierId}`);
+      history.push(`/supplier/${supplierId}/orders`);
     } catch (e) {
       setSnackbarText(errorToString(e));
     }

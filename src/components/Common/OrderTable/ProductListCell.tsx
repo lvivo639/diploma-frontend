@@ -29,7 +29,7 @@ const ProductListCell: React.FC<ProductListCellProps> = ({ productOrders }) => {
       {productOrders.map((productOrder) => (
         <ListItem className={classes.item}>
           <ListItemText
-            primary={`${productOrder.product.name} x${productOrder.product.count}`}
+            primary={`${productOrder.product.name} x${productOrder.count}`}
           />
         </ListItem>
       ))}

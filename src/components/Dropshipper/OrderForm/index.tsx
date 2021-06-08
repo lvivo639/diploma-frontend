@@ -84,13 +84,8 @@ const OrderForm: React.FC<OrderFormProps> = ({ minimumPrice, onSubmit }) => {
                 label="Price"
                 name="price"
                 value={values.price}
-                onChange={(
-                  e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
-                ) => {
-                  const newPrice = Number(e.target.value);
-                  if (newPrice < minimumPrice) return;
-                  handleChange('price')(e.target.value);
-                }}
+                InputProps={{ inputProps: { min: minimumPrice } }}
+                onChange={handleChange}
                 onBlur={handleBlur}
                 helperText={touched.price && errors.price}
                 error={Boolean(touched.price && errors.price)}

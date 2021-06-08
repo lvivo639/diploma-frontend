@@ -20,13 +20,18 @@ const DropshipperProductListScreen: React.FC = () => {
 
   React.useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
-      const response: any = await dispatch(
-        sendRequest('get', `/products`, null, {
-          supplier_setting: supplierId || '',
-        }),
-      );
-      setProductList(response.data || ([] as Array<Product>));
+      setSnackbarText('');
+      try {
+        setLoading(true);
+        const response: any = await dispatch(
+          sendRequest('get', `/products`, null, {
+            supplier_setting: supplierId || '',
+          }),
+        );
+        setProductList(response.data || ([] as Array<Product>));
+      } catch (e) {
+        setSnackbarText(errorToString(e));
+      }
       setLoading(false);
     };
     fetchData();

@@ -88,7 +88,7 @@ export interface ProductOrder {
 export type OrderStatus = 'packaging' | 'sent' | 'received' | 'sentBack';
 export interface Order {
   id: number;
-  productOrders: Array<ProductOrder>;
+  product_orders: Array<ProductOrder>;
   address: string;
   price: number;
   fullName: string;
