@@ -1,7 +1,7 @@
 import {
-  Box,
   Checkbox,
   CircularProgress,
+  FormControlLabel,
   TableCell,
   TableRow,
 } from '@material-ui/core';
@@ -42,18 +42,19 @@ const PaymentItem: React.FC<PaymentItemProps> = ({ payment, onPaidChange }) => {
         {loading ? (
           <CircularProgress />
         ) : (
-          <Box display="flex" alignItems="center">
-            <Box mr={1}>
+          <FormControlLabel
+            control={
               <Checkbox
                 checked={paymentTime !== -1}
                 onChange={handlePaymentTimeChange}
               />
-            </Box>
-
-            {paymentTime !== -1
-              ? format(paymentTime, 'dd/MM/yyyy HH:mm')
-              : 'Not paid'}
-          </Box>
+            }
+            label={
+              paymentTime !== -1
+                ? format(paymentTime, 'dd/MM/yyyy HH:mm')
+                : 'Not paid'
+            }
+          />
         )}
       </TableCell>
       <TableCell>{payment.cost} UAH</TableCell>

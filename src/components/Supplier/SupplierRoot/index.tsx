@@ -7,6 +7,7 @@ import PaymentTableScreen from '../PaymentTableScreen';
 import ProductEditScreen from '../ProductEditScreen';
 import SupplierOrderTableScreen from '../SupplierOrderTableScreen';
 import SupplierProductListScreen from '../SupplierProductListScreen';
+import NewslettersScreen from './../NewslettersScreen/index';
 import ProductAddScreen from './../ProductAddScreen/index';
 
 const SupplierRoot: React.FC = () => {
@@ -15,6 +16,7 @@ const SupplierRoot: React.FC = () => {
     { label: 'Users', link: '/users' },
     { label: 'Orders', link: '/orders' },
     { label: 'Payments', link: '/payments' },
+    { label: 'Newsletters', link: '/newsletters' },
   ];
 
   return (
@@ -27,6 +29,7 @@ const SupplierRoot: React.FC = () => {
               <Route exact path="/" component={SupplierProductListScreen} />
               <Route exact path="/users" component={DropshipperListScreen} />
               <Route exact path="/payments" component={PaymentTableScreen} />
+              <Route exact path="/newsletters" component={NewslettersScreen} />
               <Route
                 exact
                 path="/orders"
