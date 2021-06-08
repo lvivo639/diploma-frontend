@@ -8,7 +8,7 @@ import {
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { ProductOrder } from '../../../common/types';
-import CartProductCard from './../CartProductCard/index';
+import ProductCard from './../../Common/ProductCard/index';
 
 const mock: Array<ProductOrder> = [
   {
@@ -105,9 +105,14 @@ const CartScreen: React.FC = () => {
     fetchData();
   }, []);
 
-  const handleRemove = async (id: number) => {
+  const handleRemove = (id: number) => async () => {
     console.log(id);
   };
+
+  const handleCountChange = (id: number) => async (newValue: number) => {
+    return newValue;
+  };
+
   const { supplierId } = useParams<{ supplierId: string }>();
 
   const createOrder = () => {
@@ -132,11 +137,12 @@ const CartScreen: React.FC = () => {
 
           <Grid container spacing={2} justify="flex-start">
             {productOrderList.map((productOrder) => (
-              <Grid item>
-                <CartProductCard
-                  productOrder={productOrder}
-                  onRemove={() => handleRemove(productOrder.id)}
-                  key={productOrder.id}
+              <Grid item key={productOrder.id}>
+                <ProductCard
+                  product={productOrder.product}
+                  countValue={productOrder.count}
+                  onCountChange={handleCountChange(productOrder.id)}
+                  onRemove={handleRemove(productOrder.id)}
                 />
               </Grid>
             ))}

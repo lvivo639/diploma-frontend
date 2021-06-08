@@ -47,7 +47,7 @@ export interface Product {
   description: string;
   category?: string;
   price: number;
-  oldPrice: number;
+  oldPrice?: number;
   count: number;
   suplier_setting_id: number;
 }

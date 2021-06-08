@@ -43,11 +43,16 @@ const CartProductCard: React.FC<CartProductCardProps> = ({
         className={classes.media}
       />
       <CardContent>
-        <Typography color="textSecondary" component="p">
-          oldPrice: {productOrder.product.oldPrice}
-        </Typography>
-        <Typography color="textSecondary" component="p">
-          price: {productOrder.price}
+        <Typography color="textSecondary" variant="h5" component="p">
+          {productOrder.price} UAH{' '}
+          <Typography
+            color="textSecondary"
+            variant="h6"
+            component="span"
+            className={classes.oldPrice}
+          >
+            {productOrder.product.oldPrice} UAH
+          </Typography>
         </Typography>
         <Typography color="textSecondary" component="p">
           Description: {productOrder.product.description}

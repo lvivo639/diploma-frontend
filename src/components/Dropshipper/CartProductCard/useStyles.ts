@@ -7,6 +7,9 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 200,
   },
+  oldPrice: {
+    textDecoration: 'line-through',
+  },
 }));
 
 export default useStyles;

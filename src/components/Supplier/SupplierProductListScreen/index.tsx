@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Product, RootState } from '../../../common/types';
 import { sendRequest } from '../../../store/auth';
-import SupplierProductCard from '../SupplierProductCard';
+import ProductCard from '../../Common/ProductCard';
 
 const SupplierProductListScreen: React.FC = () => {
   const dispatch = useDispatch();
@@ -38,7 +38,11 @@ const SupplierProductListScreen: React.FC = () => {
     fetchData();
   }, [currentUser, dispatch]);
 
-  const onRemove = async (id: number) => {
+  const handleEdit = (id: number) => async () => {
+    history.push(`/products/${id}`);
+  };
+
+  const handleRemove = (id: number) => async () => {
     setLoading(true);
     await dispatch(sendRequest('delete', `/products/${id}`));
 
@@ -73,11 +77,11 @@ const SupplierProductListScreen: React.FC = () => {
       </Box>
       <Grid container spacing={2} justify="flex-start">
         {productList.map((product) => (
-          <Grid item>
-            <SupplierProductCard
+          <Grid item key={product.id}>
+            <ProductCard
               product={product}
-              key={product.id}
-              onRemove={onRemove}
+              onRemove={handleRemove(product.id)}
+              onEdit={handleEdit(product.id)}
             />
           </Grid>
         ))}

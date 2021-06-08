@@ -5,7 +5,10 @@ const useStyles = makeStyles((theme) => ({
     width: 300,
   },
   media: {
-    height: 300,
+    height: 200,
+  },
+  oldPrice: {
+    textDecoration: 'line-through',
   },
 }));
 

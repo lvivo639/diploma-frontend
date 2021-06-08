@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Product, RootState } from '../../../common/types';
 import { sendRequest } from '../../../store/auth';
-import DropshipperProductCard from '../DropshipperProductCard';
+import ProductCard from './../../Common/ProductCard/index';
 
 const DropshipperProductListScreen: React.FC = () => {
   const dispatch = useDispatch();
@@ -30,6 +30,10 @@ const DropshipperProductListScreen: React.FC = () => {
     fetchData();
   }, [currentUser, dispatch, supplierId]);
 
+  const handleAddToCart = (id: number) => async () => {
+    console.log(id);
+  };
+
   if (loading) return <CircularProgress />;
 
   return (
@@ -41,8 +45,11 @@ const DropshipperProductListScreen: React.FC = () => {
       {productList.length ? (
         <Grid container spacing={2} justify="flex-start">
           {productList.map((product) => (
-            <Grid item>
-              <DropshipperProductCard product={product} key={product.id} />
+            <Grid item key={product.id}>
+              <ProductCard
+                product={product}
+                onAddToCart={handleAddToCart(product.id)}
+              />
             </Grid>
           ))}
         </Grid>
