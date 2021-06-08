@@ -29,7 +29,6 @@ const DropshipperOrderItem: React.FC<DropshipperOrderItemProps> = ({
       </TableCell>
       <TableCell>{order.address}</TableCell>
       <TableCell>{getPrice(order)}</TableCell>
-      <TableCell>{order.deliveryCost}</TableCell>
       <TableCell>{order.price}</TableCell>
       <TableCell>{order.fullName}</TableCell>
       <TableCell>{order.description}</TableCell>

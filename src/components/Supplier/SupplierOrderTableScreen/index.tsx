@@ -52,7 +52,6 @@ const orderList: Array<Order> = [
     description: 'description',
     price: 12,
     status: 'packaging',
-    deliveryCost: 50,
   },
   {
     id: 1,
@@ -62,7 +61,6 @@ const orderList: Array<Order> = [
     description: 'description',
     price: 12,
     status: 'sent',
-    deliveryCost: 50,
   },
   {
     id: 1,
@@ -72,7 +70,6 @@ const orderList: Array<Order> = [
     description: 'description',
     price: 12,
     status: 'received',
-    deliveryCost: 50,
   },
   {
     id: 1,
@@ -82,7 +79,6 @@ const orderList: Array<Order> = [
     description: 'description',
     price: 12,
     status: 'sentBack',
-    deliveryCost: 50,
   },
 ];
 

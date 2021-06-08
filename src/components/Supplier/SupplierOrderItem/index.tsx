@@ -5,7 +5,6 @@ import {
   Select,
   TableCell,
   TableRow,
-  TextField,
 } from '@material-ui/core';
 import React from 'react';
 import { Order, OrderStatus } from '../../../common/types';
@@ -35,26 +34,6 @@ const SupplierOrderItem: React.FC<SupplierOrderItemProps> = ({
     await onStatusChange(event.target.value as OrderStatus);
     setStatus(event.target.value as OrderStatus);
     setLoadingStatus(false);
-  };
-
-  const [loadingDeliveryCost, setLoadingDeliveryCost] = React.useState(false);
-  const [deliveryCost, setDeliveryCost] = React.useState<string>(
-    order.deliveryCost.toString(),
-  );
-
-  const handleDeliveryCostChange = async (
-    event: React.ChangeEvent<{ value: unknown }>,
-  ) => {
-    setDeliveryCost(event.target.value as string);
-  };
-
-  const handleDeliveryCostBlur = async (
-    event: React.ChangeEvent<{ value: unknown }>,
-  ) => {
-    setLoadingDeliveryCost(true);
-    await onDeliveryCostChange(Number(event.target.value as string));
-    setDeliveryCost(event.target.value as string);
-    setLoadingDeliveryCost(false);
   };
 
   const statusList: Array<OrderStatus> = [
@@ -92,19 +71,7 @@ const SupplierOrderItem: React.FC<SupplierOrderItemProps> = ({
       </TableCell>
       <TableCell>{order.address}</TableCell>
       <TableCell>{getPrice(order)}</TableCell>
-      <TableCell>
-        {loadingDeliveryCost ? (
-          <CircularProgress />
-        ) : (
-          <TextField
-            variant="outlined"
-            type="number"
-            value={deliveryCost}
-            onBlur={handleDeliveryCostBlur}
-            onChange={handleDeliveryCostChange}
-          />
-        )}
-      </TableCell>
+
       <TableCell>{order.price}</TableCell>
       <TableCell>{order.fullName}</TableCell>
       <TableCell>{order.description}</TableCell>

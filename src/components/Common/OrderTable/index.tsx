@@ -21,7 +21,6 @@ const OrderTable: React.FC = ({ children }) => {
             <TableCell>Products</TableCell>
             <TableCell>Address</TableCell>
             <TableCell>Price</TableCell>
-            <TableCell>Delivery Cost</TableCell>
             <TableCell>Supplier Price</TableCell>
             <TableCell>Full Name</TableCell>
             <TableCell>Description</TableCell>

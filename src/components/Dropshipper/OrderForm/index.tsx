@@ -1,21 +1,20 @@
 import { Box, Button, TextField } from '@material-ui/core';
 import { Form, Formik, FormikProps } from 'formik';
 import React from 'react';
-import { ProductOrder } from './../../../common/types';
 import { OrderFormikProps } from './types';
 import validationSchema from './validationSchema';
 
 type OrderFormProps = {
   onSubmit: (values: OrderFormikProps) => Promise<void>;
-  productOrders: Array<ProductOrder>;
+  minimumPrice: number;
 };
 
-const OrderForm: React.FC<OrderFormProps> = ({ productOrders, onSubmit }) => {
+const OrderForm: React.FC<OrderFormProps> = ({ minimumPrice, onSubmit }) => {
   const initialValues: OrderFormikProps = {
     address: '',
     fullName: '',
     description: '',
-    price: productOrders.reduce((acc, cur) => acc + cur.product.price, 0),
+    price: minimumPrice,
   };
 
   const handleSubmit = async (values: OrderFormikProps) => {
@@ -85,7 +84,13 @@ const OrderForm: React.FC<OrderFormProps> = ({ productOrders, onSubmit }) => {
                 label="Price"
                 name="price"
                 value={values.price}
-                onChange={handleChange}
+                onChange={(
+                  e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+                ) => {
+                  const newPrice = Number(e.target.value);
+                  if (newPrice < minimumPrice) return;
+                  handleChange('price')(e.target.value);
+                }}
                 onBlur={handleBlur}
                 helperText={touched.price && errors.price}
                 error={Boolean(touched.price && errors.price)}

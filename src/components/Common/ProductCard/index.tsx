@@ -121,7 +121,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 <DeleteIcon onClick={() => waitForAction(onRemove)} />
               </IconButton>
             )}
-            {onAddToCart && (
+            {onAddToCart && product.count && (
               <IconButton>
                 <ShoppingCartIcon onClick={() => waitForAction(onAddToCart)} />
               </IconButton>

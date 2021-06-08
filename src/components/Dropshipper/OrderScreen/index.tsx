@@ -1,100 +1,69 @@
-import { Box, Button, Typography } from '@material-ui/core';
+import { Box, Button, CircularProgress, Typography } from '@material-ui/core';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { ProductOrder } from '../../../common/types';
+import errorToString from '../../../common/errorToString';
+import { RootState } from '../../../common/types';
+import { sendRequest } from '../../../store/auth';
+import InfoSnackbar from '../../Unknown/InfoSnackbar';
 import OrderForm from '../OrderForm';
 import { OrderFormikProps } from '../OrderForm/types';
-
-const mock: Array<ProductOrder> = [
-  {
-    id: 1,
-    product: {
-      id: 1,
-      name: 'id',
-      image: {
-        _id: '1',
-        name: 'a',
-        url: '/11111111',
-      },
-      description: 'asdsdfa',
-      price: 1,
-      oldPrice: 1,
-      count: 2,
-      suplier_setting_id: 1,
-    },
-    price: 135,
-    count: 1,
-  },
-  {
-    id: 1,
-    product: {
-      id: 1,
-      name: 'id',
-      image: {
-        _id: '1',
-        name: 'a',
-        url: '/11111111',
-      },
-      description: 'asdsdfa',
-      price: 1,
-      oldPrice: 1,
-      count: 2,
-      suplier_setting_id: 1,
-    },
-    price: 135,
-    count: 1,
-  },
-  {
-    id: 1,
-    product: {
-      id: 1,
-      name: 'id',
-      image: {
-        _id: '1',
-        name: 'a',
-        url: '/11111111',
-      },
-      description: 'asdsdfa',
-      price: 1,
-      oldPrice: 1,
-      count: 2,
-      suplier_setting_id: 1,
-    },
-    price: 135,
-    count: 1,
-  },
-  {
-    id: 1,
-    product: {
-      id: 1,
-      name: 'id',
-      image: {
-        _id: '1',
-        name: 'a',
-        url: '/11111111',
-      },
-      description: 'asdsdfa',
-      price: 1,
-      oldPrice: 1,
-      count: 2,
-      suplier_setting_id: 1,
-    },
-    price: 135,
-    count: 1,
-  },
-];
 
 const OrderScreen: React.FC = () => {
   const history = useHistory();
   const { supplierId } = useParams<{ supplierId: string }>();
+
+  const dispatch = useDispatch();
+
+  const { currentUser } = useSelector((state: RootState) => state.user);
+
+  const [minimumPrice, setMinimumPrice] = React.useState<number | undefined>();
+
+  const [loading, setLoading] = React.useState(false);
+  const [snackbarText, setSnackbarText] = React.useState('');
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      setSnackbarText('');
+      setLoading(true);
+      try {
+        const response: any = await dispatch(
+          sendRequest('get', `/carts/price`, null, {
+            supplier_setting_id: supplierId,
+            dropshipper_setting_id: currentUser?.dropshipper_setting?.id,
+          }),
+        );
+        setMinimumPrice(response?.data as number);
+        setLoading(false);
+      } catch (e) {
+        setSnackbarText(errorToString(e));
+      }
+    };
+    fetchData();
+  }, [currentUser?.dropshipper_setting?.id, dispatch, supplierId]);
 
   const backToCart = () => {
     history.push(`/supplier/${supplierId}/cart`);
   };
 
   const onSubmit = async (values: OrderFormikProps) => {
-    console.log(values);
+    setSnackbarText('');
+    setLoading(true);
+    try {
+      await dispatch(
+        sendRequest('post', `/carts/createOrder`, values, {
+          supplier_setting_id: supplierId,
+          dropshipper_setting_id: currentUser?.dropshipper_setting?.id,
+        }),
+      );
+      setLoading(false);
+      // history.push(`/supplier/${supplierId}`);
+    } catch (e) {
+      setSnackbarText(errorToString(e));
+    }
   };
+
+  if (loading || minimumPrice === undefined) return <CircularProgress />;
 
   return (
     <>
@@ -106,8 +75,14 @@ const OrderScreen: React.FC = () => {
         Back to Cart
       </Button>
       <Box mt={2}>
-        <OrderForm onSubmit={onSubmit} productOrders={mock} />
+        <OrderForm onSubmit={onSubmit} minimumPrice={minimumPrice} />
       </Box>
+
+      <InfoSnackbar
+        text={snackbarText}
+        setText={setSnackbarText}
+        severity="error"
+      />
     </>
   );
 };

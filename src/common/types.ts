@@ -94,7 +94,6 @@ export interface Order {
   fullName: string;
   description: string;
   status: OrderStatus;
-  deliveryCost: number;
 }
 
 export interface Payment {

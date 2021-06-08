@@ -66,7 +66,18 @@ const CartScreen: React.FC = () => {
   };
 
   const handleCountChange = (id: number) => async (newValue: number) => {
-    return newValue;
+    setSnackbarText('');
+    try {
+      await dispatch(
+        sendRequest('post', `/product-orders/changeCount/${id}`, null, {
+          newValue,
+        }),
+      );
+      return newValue;
+    } catch (e) {
+      setSnackbarText(errorToString(e));
+    }
+    return -1;
   };
 
   const createOrder = () => {
