@@ -24,7 +24,7 @@ const SupplierCard: React.FC<SupplierCardProps> = ({
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} elevation={4}>
       <CardActionArea onClick={onSupplierClick}>
         <CardHeader title={supplier.storageName} />
         <CardMedia

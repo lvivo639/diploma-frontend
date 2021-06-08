@@ -1,4 +1,5 @@
 import { CircularProgress, Container } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../common/types';
@@ -6,6 +7,8 @@ import DropshipperRoot from '../../Dropshipper/DropshipperRoot';
 import SupplierRoot from '../../Supplier/SupplierRoot';
 import ErrorScreen from '../ErrorScreen';
 import GuestRoot from '../GuestRoot';
+import dropshipperTheme from './dropshipperTheme';
+import supplierTheme from './supplierTheme';
 
 const Root: React.FC = () => {
   const { currentUser, isLoading, error } = useSelector(
@@ -19,9 +22,13 @@ const Root: React.FC = () => {
   return (
     <Container maxWidth="lg">
       {currentUser?.role?.type === 'dropshipper' ? (
-        <DropshipperRoot />
+        <ThemeProvider theme={dropshipperTheme}>
+          <DropshipperRoot />
+        </ThemeProvider>
       ) : currentUser?.role?.type === 'supplier' ? (
-        <SupplierRoot />
+        <ThemeProvider theme={supplierTheme}>
+          <SupplierRoot />
+        </ThemeProvider>
       ) : (
         <GuestRoot />
       )}

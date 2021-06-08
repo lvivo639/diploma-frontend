@@ -22,7 +22,7 @@ const DropshipperProductCard: React.FC<DropshipperProductCardProps> = ({
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} elevation={4}>
       <CardHeader title={product.name} />
       <CardMedia
         image={getImageUrl(product.image?.url)}

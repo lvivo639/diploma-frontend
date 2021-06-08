@@ -73,10 +73,10 @@ export interface DropshipperSetting {
   users_permissions_user: number;
   supplier_settings: Array<SupplierSetting>;
   telegramUsername?: string;
-  telegramId?: number;
-  telegramCode?: string;
   phoneNumber?: string;
   cardNumber?: string;
+  telegramId?: number;
+  telegramCode?: string;
 }
 
 export interface ProductOrder {

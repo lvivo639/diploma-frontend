@@ -35,7 +35,7 @@ const CartProductCard: React.FC<CartProductCardProps> = ({
   };
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} elevation={4}>
       <CardHeader title={productOrder.product.name} />
       <CardMedia
         image={getImageUrl(productOrder.product.image?.url)}

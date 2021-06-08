@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core';
+import { Box, Paper } from '@material-ui/core';
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Navbar from '../../Unknown/Navbar';
@@ -25,25 +25,27 @@ const DropshipperRoot: React.FC = () => {
           tabList={tabList}
           onProfileClick={() => setSupplierId(undefined)}
         />
-        <Box bgcolor="#efefef" p={3.5} minHeight="100vh" boxSizing="border-box">
-          <Box p={2}>
-            <Switch>
-              <Route
-                exact
-                path="/invite/:inviteCode"
-                component={AcceptInvitationScreen}
-              />
-              <Route exact path="/profile" component={DropshipperProfile} />
-              <Route
-                exact
-                path="/"
-                component={() => (
-                  <SupplierListScreen setSupplierId={setSupplierId} />
-                )}
-              />
-              <Route path="*" component={() => <Redirect to="/" />} />
-            </Switch>
-          </Box>
+        <Box my={2}>
+          <Paper elevation={4}>
+            <Box p={2}>
+              <Switch>
+                <Route
+                  exact
+                  path="/invite/:inviteCode"
+                  component={AcceptInvitationScreen}
+                />
+                <Route exact path="/profile" component={DropshipperProfile} />
+                <Route
+                  exact
+                  path="/"
+                  component={() => (
+                    <SupplierListScreen setSupplierId={setSupplierId} />
+                  )}
+                />
+                <Route path="*" component={() => <Redirect to="/" />} />
+              </Switch>
+            </Box>
+          </Paper>
         </Box>
       </>
     );
@@ -62,58 +64,60 @@ const DropshipperRoot: React.FC = () => {
         tabList={tabList}
         onProfileClick={() => setSupplierId(undefined)}
       />
-      <Box bgcolor="#efefef" p={3.5} minHeight="100vh" boxSizing="border-box">
-        <Box p={2}>
-          <Switch>
-            <Route
-              exact
-              path="/supplier/:supplierId/balance"
-              component={BalanceScreen}
-            />
-            <Route
-              exact
-              path="/supplier/:supplierId/orders"
-              component={OrderListScreen}
-            />
-            <Route
-              exact
-              path="/supplier/:supplierId/cart/order"
-              component={OrderScreen}
-            />
-            <Route
-              exact
-              path="/supplier/:supplierId/cart"
-              component={CartScreen}
-            />
-            <Route
-              exact
-              path="/supplier/:supplierId"
-              component={DropshipperProductListScreen}
-            />
-            <Route
-              exact
-              path="/invite/:inviteCode"
-              component={AcceptInvitationScreen}
-            />
-            <Route
-              exact
-              path="/"
-              component={() => (
-                <SupplierListScreen setSupplierId={setSupplierId} />
-              )}
-            />
-            <Route
-              path="*"
-              component={() => (
-                <Redirect
-                  to={
-                    supplierId !== undefined ? '/' : `/supplier/${supplierId}`
-                  }
-                />
-              )}
-            />
-          </Switch>
-        </Box>
+      <Box my={2}>
+        <Paper elevation={4}>
+          <Box p={2}>
+            <Switch>
+              <Route
+                exact
+                path="/supplier/:supplierId/balance"
+                component={BalanceScreen}
+              />
+              <Route
+                exact
+                path="/supplier/:supplierId/orders"
+                component={OrderListScreen}
+              />
+              <Route
+                exact
+                path="/supplier/:supplierId/cart/order"
+                component={OrderScreen}
+              />
+              <Route
+                exact
+                path="/supplier/:supplierId/cart"
+                component={CartScreen}
+              />
+              <Route
+                exact
+                path="/supplier/:supplierId"
+                component={DropshipperProductListScreen}
+              />
+              <Route
+                exact
+                path="/invite/:inviteCode"
+                component={AcceptInvitationScreen}
+              />
+              <Route
+                exact
+                path="/"
+                component={() => (
+                  <SupplierListScreen setSupplierId={setSupplierId} />
+                )}
+              />
+              <Route
+                path="*"
+                component={() => (
+                  <Redirect
+                    to={
+                      supplierId !== undefined ? '/' : `/supplier/${supplierId}`
+                    }
+                  />
+                )}
+              />
+            </Switch>
+          </Box>
+        </Paper>
       </Box>
     </>
   );
