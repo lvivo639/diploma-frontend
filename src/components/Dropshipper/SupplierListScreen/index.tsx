@@ -1,9 +1,10 @@
-import { Box, CircularProgress, Grid, Typography } from '@material-ui/core';
+import { CircularProgress, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { RootState, SupplierSetting } from '../../../common/types';
 import { sendRequest } from '../../../store/auth';
+import BasicPaper from '../../Unknown/BasicPaper';
 import SupplierCard from './../SupplierCard/index';
 
 type SupplierListScreenProps = {
@@ -42,14 +43,11 @@ const SupplierListScreen: React.FC<SupplierListScreenProps> = ({
   if (loading) return <CircularProgress />;
 
   return (
-    <>
-      <Box mb={4}>
-        <Typography variant="h3">Your supplier list</Typography>
-        <Typography>
-          Click on supplier card to watch product list, your orders, balance and
-          supplier settings.
-        </Typography>
-      </Box>
+    <BasicPaper
+      title="Your supplier list"
+      subtitle="Click on supplier card to watch product list, your orders, balance and
+      supplier settings."
+    >
       {supplierList.length ? (
         <Grid container spacing={2} justify="flex-start">
           {supplierList.map((supplier) => (
@@ -71,7 +69,7 @@ const SupplierListScreen: React.FC<SupplierListScreenProps> = ({
           supplier storage
         </Typography>
       )}
-    </>
+    </BasicPaper>
   );
 };
 

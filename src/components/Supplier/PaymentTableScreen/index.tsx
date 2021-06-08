@@ -1,15 +1,14 @@
 import {
-  Box,
   Paper,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from '@material-ui/core';
 import React from 'react';
 import { Payment } from '../../../common/types';
+import BasicPaper from '../../Unknown/BasicPaper';
 import PaymentItem from '../PaymentItem';
 import useStyles from './useStyles';
 
@@ -118,12 +117,10 @@ const PaymentTableScreen: React.FC = () => {
     return value ? new Date().getTime() : -1;
   };
   return (
-    <>
-      <Box mb={4}>
-        <Typography variant="h3">Payment requests</Typography>
-        <Typography>Check "paid" only after money was sent</Typography>
-      </Box>
-
+    <BasicPaper
+      title="Payment requests"
+      subtitle="Check 'paid' only after money was sent"
+    >
       <TableContainer component={Paper} className={classes.tableRoot}>
         <TableContainer aria-label="simple table">
           <TableHead>
@@ -147,7 +144,7 @@ const PaymentTableScreen: React.FC = () => {
           </TableBody>
         </TableContainer>
       </TableContainer>
-    </>
+    </BasicPaper>
   );
 };
 

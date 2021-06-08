@@ -1,9 +1,9 @@
-import { Box, Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Product, RootState } from '../../../common/types';
 import { sendRequest } from '../../../store/auth';
+import BasicPaper from '../../Unknown/BasicPaper';
 import { ProductFormikProps } from '../ProductForm/types';
 import ProductForm from './../ProductForm/index';
 
@@ -25,13 +25,9 @@ const ProductAddScreen: React.FC = () => {
   };
 
   return (
-    <>
-      <Box>
-        <Typography variant="h3">New product</Typography>
-        <Typography>Fill form to add new product</Typography>
-      </Box>
+    <BasicPaper title="New product" subtitle="Fill form to add new product">
       <ProductForm onSubmit={onSubmit} />
-    </>
+    </BasicPaper>
   );
 };
 

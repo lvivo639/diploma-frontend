@@ -1,9 +1,10 @@
-import { Box, CircularProgress, Typography } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Product, RootState } from '../../../common/types';
 import { sendRequest } from '../../../store/auth';
+import BasicPaper from '../../Unknown/BasicPaper';
 import { ProductFormikProps } from '../ProductForm/types';
 import ProductForm from './../ProductForm/index';
 
@@ -42,14 +43,12 @@ const ProductEditScreen: React.FC = () => {
   if (loading) return <CircularProgress />;
 
   return (
-    <>
-      <Box>
-        <Typography variant="h3">Edit product</Typography>
-        <Typography>Fill form with a new info and click save</Typography>
-      </Box>
-
+    <BasicPaper
+      title="Edit product"
+      subtitle="Fill form with a new info and click save"
+    >
       <ProductForm onSubmit={onSubmit} product={product} />
-    </>
+    </BasicPaper>
   );
 };
 

@@ -6,7 +6,7 @@ import BalanceScreen from '../BalanceScreen';
 import CartScreen from '../CartScreen';
 import DropshipperOrderTableScreen from '../DropshipperOrderTableScreen';
 import DropshipperProductListScreen from '../DropshipperProductListScreen';
-import DropshipperProfile from '../DropshipperProfile';
+import DropshipperProfileScreen from '../DropshipperProfileScreen';
 import OrderScreen from '../OrderScreen';
 import AcceptInvitationScreen from './../AcceptInvitationScreen/index';
 import SupplierListScreen from './../SupplierListScreen/index';
@@ -34,7 +34,11 @@ const DropshipperRoot: React.FC = () => {
                   path="/invite/:inviteCode"
                   component={AcceptInvitationScreen}
                 />
-                <Route exact path="/profile" component={DropshipperProfile} />
+                <Route
+                  exact
+                  path="/profile"
+                  component={DropshipperProfileScreen}
+                />
                 <Route
                   exact
                   path="/"

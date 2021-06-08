@@ -1,7 +1,7 @@
-import { Box, Typography } from '@material-ui/core';
 import React from 'react';
 import { Order, OrderStatus } from '../../../common/types';
 import OrderTable from '../../Common/OrderTable';
+import BasicPaper from '../../Unknown/BasicPaper';
 import SupplierOrderItem from '../SupplierOrderItem/index';
 
 const orderList: Array<Order> = [
@@ -92,11 +92,7 @@ const SupplierOrderTableScreen: React.FC = () => {
   };
 
   return (
-    <>
-      <Box mb={4}>
-        <Typography variant="h3">Your order list</Typography>
-        <Typography>Order history</Typography>
-      </Box>
+    <BasicPaper title="Your order list" subtitle="Order history">
       <OrderTable>
         {orderList.map((order) => (
           <SupplierOrderItem
@@ -106,7 +102,7 @@ const SupplierOrderTableScreen: React.FC = () => {
           />
         ))}
       </OrderTable>
-    </>
+    </BasicPaper>
   );
 };
 

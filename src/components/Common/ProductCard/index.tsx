@@ -71,7 +71,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
       />
       <CardContent>
         <Typography color="textSecondary" variant="h5" component="p">
-          {product.price} UAH{' '}
+          {product.price}
+          {' UAH '}
           {product.oldPrice !== undefined && (
             <Typography
               color="textSecondary"

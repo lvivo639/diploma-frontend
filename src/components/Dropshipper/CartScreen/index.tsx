@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { ProductOrder, RootState } from '../../../common/types';
 import { sendRequest } from '../../../store/auth';
+import BasicPaper from '../../Unknown/BasicPaper';
 import errorToString from './../../../common/errorToString';
 import ProductCard from './../../Common/ProductCard/index';
 import InfoSnackbar from './../../Unknown/InfoSnackbar/index';
@@ -87,11 +88,7 @@ const CartScreen: React.FC = () => {
   if (loading) return <CircularProgress />;
 
   return (
-    <>
-      <Box mb={4}>
-        <Typography variant="h3">Your cart</Typography>
-        <Typography>Add some products to create an order.</Typography>
-      </Box>
+    <BasicPaper title="Cart" subtitle="Add some products to create an order">
       {productOrderList.length ? (
         <>
           <Box mb={2}>
@@ -121,7 +118,7 @@ const CartScreen: React.FC = () => {
         setText={setSnackbarText}
         severity="error"
       />
-    </>
+    </BasicPaper>
   );
 };
 

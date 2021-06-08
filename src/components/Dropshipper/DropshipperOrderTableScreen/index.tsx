@@ -1,7 +1,7 @@
-import { Box, Typography } from '@material-ui/core';
 import React from 'react';
 import { Order } from '../../../common/types';
 import OrderTable from '../../Common/OrderTable';
+import BasicPaper from '../../Unknown/BasicPaper';
 import DropshipperOrderItem from './../DropshipperOrderItem/index';
 
 const orderList: Array<Order> = [
@@ -84,17 +84,13 @@ const orderList: Array<Order> = [
 
 const DropshipperOrderTableScreen: React.FC = () => {
   return (
-    <>
-      <Box mb={4}>
-        <Typography variant="h3">Your order list</Typography>
-        <Typography>Order history</Typography>
-      </Box>
+    <BasicPaper title="Orders" subtitle="Order history">
       <OrderTable>
         {orderList.map((order) => (
           <DropshipperOrderItem order={order} />
         ))}
       </OrderTable>
-    </>
+    </BasicPaper>
   );
 };
 

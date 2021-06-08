@@ -1,10 +1,4 @@
-import {
-  Box,
-  CircularProgress,
-  Grid,
-  IconButton,
-  Typography,
-} from '@material-ui/core';
+import { Box, CircularProgress, Grid, IconButton } from '@material-ui/core';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { Product, RootState } from '../../../common/types';
 import { sendRequest } from '../../../store/auth';
 import ProductCard from '../../Common/ProductCard';
+import BasicPaper from '../../Unknown/BasicPaper';
 
 const SupplierProductListScreen: React.FC = () => {
   const dispatch = useDispatch();
@@ -61,19 +56,14 @@ const SupplierProductListScreen: React.FC = () => {
   if (loading) return <CircularProgress />;
 
   return (
-    <>
-      <Box display="flex" justifyContent="space-between" mb={4}>
-        <Box>
-          <Typography variant="h3">Your products</Typography>
-          <Typography>
-            You can change existing or create new one clicked on add button
-          </Typography>
-        </Box>
-        <Box>
-          <IconButton onClick={() => history.push('/products/add')}>
-            <AddCircleOutlineIcon />
-          </IconButton>
-        </Box>
+    <BasicPaper
+      title="Your products"
+      subtitle=" You can change existing or create new one clicked on add button"
+    >
+      <Box>
+        <IconButton onClick={() => history.push('/products/add')}>
+          <AddCircleOutlineIcon />
+        </IconButton>
       </Box>
       <Grid container spacing={2} justify="flex-start">
         {productList.map((product) => (
@@ -86,7 +76,7 @@ const SupplierProductListScreen: React.FC = () => {
           </Grid>
         ))}
       </Grid>
-    </>
+    </BasicPaper>
   );
 };
 

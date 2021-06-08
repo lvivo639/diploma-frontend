@@ -1,10 +1,11 @@
-import { Box, Button, CircularProgress, Typography } from '@material-ui/core';
+import { Box, Button, CircularProgress } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import errorToString from '../../../common/errorToString';
 import { RootState } from '../../../common/types';
 import { sendRequest } from '../../../store/auth';
+import BasicPaper from '../../Unknown/BasicPaper';
 import InfoSnackbar from '../../Unknown/InfoSnackbar';
 import OrderForm from '../OrderForm';
 import { OrderFormikProps } from '../OrderForm/types';
@@ -66,11 +67,7 @@ const OrderScreen: React.FC = () => {
   if (loading || minimumPrice === undefined) return <CircularProgress />;
 
   return (
-    <>
-      <Box mb={4}>
-        <Typography variant="h3">Create an order</Typography>
-        <Typography>Fill form to create an order</Typography>
-      </Box>
+    <BasicPaper title="Create an order" subtitle="Fill form to create an order">
       <Button onClick={backToCart} variant="outlined">
         Back to Cart
       </Button>
@@ -83,7 +80,7 @@ const OrderScreen: React.FC = () => {
         setText={setSnackbarText}
         severity="error"
       />
-    </>
+    </BasicPaper>
   );
 };
 

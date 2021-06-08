@@ -1,9 +1,10 @@
-import { Box, CircularProgress, Grid, Typography } from '@material-ui/core';
+import { CircularProgress, Grid } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Product, RootState } from '../../../common/types';
 import { sendRequest } from '../../../store/auth';
+import BasicPaper from '../../Unknown/BasicPaper';
 import errorToString from './../../../common/errorToString';
 import ProductCard from './../../Common/ProductCard/index';
 import InfoSnackbar from './../../Unknown/InfoSnackbar/index';
@@ -50,11 +51,10 @@ const DropshipperProductListScreen: React.FC = () => {
   if (loading) return <CircularProgress />;
 
   return (
-    <>
-      <Box mb={4}>
-        <Typography variant="h3">Supplier product list</Typography>
-        <Typography>Add products to cart to create an order</Typography>
-      </Box>
+    <BasicPaper
+      title="Supplier product list"
+      subtitle="Add products to cart to create an order"
+    >
       {productList.length ? (
         <Grid container spacing={2} justify="flex-start">
           {productList.map((product) => (
@@ -70,7 +70,7 @@ const DropshipperProductListScreen: React.FC = () => {
         <>Product list of this supplier is empty</>
       )}
       <InfoSnackbar text={snackbarText} setText={setSnackbarText} />
-    </>
+    </BasicPaper>
   );
 };
 

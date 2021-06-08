@@ -8,11 +8,11 @@ import {
   TableHead,
   TableRow,
   TextField,
-  Typography,
 } from '@material-ui/core';
 import { format } from 'date-fns';
 import React from 'react';
 import { Payment } from '../../../common/types';
+import BasicPaper from '../../Unknown/BasicPaper';
 import useStyles from './useStyles';
 
 const mockList: Array<Partial<Payment>> = [
@@ -51,14 +51,10 @@ const BalanceScreen: React.FC = () => {
     }
   };
   return (
-    <>
-      <Box mb={4}>
-        <Typography variant="h3">Your Balance: {balance} UAH</Typography>
-        <Typography>
-          Payment requests history. Here you also can create new one
-        </Typography>
-      </Box>
-
+    <BasicPaper
+      title={`Your Balance: ${balance} UAH`}
+      subtitle="Payment requests history. Here you also can create new one"
+    >
       <Box display="flex" justifyContent="space-between" mb={2}>
         <Box>
           <TextField
@@ -104,7 +100,7 @@ const BalanceScreen: React.FC = () => {
           </TableContainer>
         </TableContainer>
       </Box>
-    </>
+    </BasicPaper>
   );
 };
 

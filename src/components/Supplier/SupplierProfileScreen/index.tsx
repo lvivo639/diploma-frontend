@@ -6,6 +6,7 @@ import PasswordSettingsForm from '../../Common/PasswordSettingsForm';
 import { PasswordFormikProps } from '../../Common/PasswordSettingsForm/types';
 import UserSettingsForm from '../../Common/UserSettingsForm';
 import { UserFormikProps } from '../../Common/UserSettingsForm/types';
+import BasicPaper from '../../Unknown/BasicPaper';
 import { SupplierSettingsFormikProps } from '../SupplierSettingsForm/types';
 import SupplierSettingsForm from './../SupplierSettingsForm/index';
 import useStyles from './useStyles';
@@ -33,11 +34,7 @@ const SupplierProfileScreen: React.FC = () => {
   };
 
   return (
-    <>
-      <Box mb={4}>
-        <Typography variant="h3">Profile</Typography>
-        <Typography>Settings you can change</Typography>
-      </Box>
+    <BasicPaper title="Profile" subtitle="Settings you can change">
       <Box m={4}>
         <Paper classes={{ root: classes.paperRoot }}>
           <Typography variant="h5">User profile settings</Typography>
@@ -62,7 +59,7 @@ const SupplierProfileScreen: React.FC = () => {
           </Paper>
         </Box>
       )}
-    </>
+    </BasicPaper>
   );
 };
 

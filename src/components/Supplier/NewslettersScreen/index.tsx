@@ -1,5 +1,6 @@
-import { Box, Button, TextField, Typography } from '@material-ui/core';
+import { Box, Button, TextField } from '@material-ui/core';
 import React from 'react';
+import BasicPaper from '../../Unknown/BasicPaper';
 
 const NewslettersScreen: React.FC = () => {
   const [msgText, setMsgText] = React.useState('');
@@ -9,11 +10,10 @@ const NewslettersScreen: React.FC = () => {
   };
 
   return (
-    <>
-      <Box mb={4}>
-        <Typography variant="h3">Newsletters</Typography>
-        <Typography>Send message to your dropshippers</Typography>
-      </Box>
+    <BasicPaper
+      title="Newsletters"
+      subtitle="Send message to your dropshippers"
+    >
       <Box maxWidth={500} display="flex" flexDirection="column">
         <TextField
           id="outlined-multiline-static"
@@ -31,7 +31,7 @@ const NewslettersScreen: React.FC = () => {
           </Button>
         </Box>
       </Box>
-    </>
+    </BasicPaper>
   );
 };
 

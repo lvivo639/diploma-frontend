@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React from 'react';
 import { DropshipperSetting } from '../../../common/types';
+import BasicPaper from '../../Unknown/BasicPaper';
 import useStyles from './useStyles';
 
 //special request with user populate
@@ -94,11 +95,10 @@ const dropshipperList: Array<DropshipperSetting> = [
 const DropshipperListScreen: React.FC = () => {
   const classes = useStyles();
   return (
-    <>
-      <Box mb={2}>
-        <Typography variant="h3">Users with access</Typography>
-        <Typography>You can remove user just clicked on bucket icon</Typography>
-      </Box>
+    <BasicPaper
+      title="Users with access"
+      subtitle="You can remove user just clicked on bucket icon"
+    >
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -142,7 +142,7 @@ const DropshipperListScreen: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+    </BasicPaper>
   );
 };
 
