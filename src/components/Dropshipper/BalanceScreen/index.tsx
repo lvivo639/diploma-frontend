@@ -1,16 +1,21 @@
-import { Box, Button, TextField, Typography } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import {
+  Box,
+  Button,
+  Paper,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography,
+} from '@material-ui/core';
 import { format } from 'date-fns';
 import React from 'react';
 import { Payment } from '../../../common/types';
 import useStyles from './useStyles';
 
-const mockList: Array<Payment> = [
+const mockList: Array<Partial<Payment>> = [
   {
     id: 1,
     paymentTime: 1623062138042,
@@ -18,7 +23,7 @@ const mockList: Array<Payment> = [
   },
   {
     id: 1,
-    paymentTime: undefined,
+    paymentTime: -1,
     cost: 100,
   },
   {
@@ -84,11 +89,11 @@ const BalanceScreen: React.FC = () => {
                   </TableCell>
                   <TableCell
                     className={
-                      mock.paymentTime ? classes.paid : classes.notPaid
+                      mock.paymentTime !== -1 ? classes.paid : classes.notPaid
                     }
                   >
-                    {mock.paymentTime
-                      ? format(mock.paymentTime, 'dd/MM/yyyy HH:mm')
+                    {mock.paymentTime !== -1
+                      ? format(mock.paymentTime as number, 'dd/MM/yyyy HH:mm')
                       : 'Not paid'}
                   </TableCell>
 

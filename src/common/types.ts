@@ -99,6 +99,8 @@ export interface Order {
 
 export interface Payment {
   id: number;
-  paymentTime: number | undefined;
+  paymentTime: number; // -1 if not paid
   cost: number;
+  supplier_setting: SupplierSetting;
+  dropshipper_setting: DropshipperSetting;
 }
