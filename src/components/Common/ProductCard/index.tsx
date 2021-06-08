@@ -35,24 +35,30 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const classes = useStyles();
 
+  const [actionsLoading, setActionsLoading] = React.useState(false);
   const [count, setCount] = React.useState<number | undefined>(countValue);
 
-  const [countLoading, setCountLoading] = React.useState(false);
-
   const handleAddCount = async () => {
-    if (count === undefined || !onCountChange) return;
-    setCountLoading(true);
+    if (count === undefined || !onCountChange || count + 1 > product.count)
+      return;
+    setActionsLoading(true);
     const data = await onCountChange(count + 1);
     setCount(data);
-    setCountLoading(false);
+    setActionsLoading(false);
   };
 
   const handleSubCount = async () => {
-    if (count === undefined || !onCountChange) return;
-    setCountLoading(true);
+    if (count === undefined || !onCountChange || count - 1 < 1) return;
+    setActionsLoading(true);
     const data = await onCountChange(count - 1);
     setCount(data);
-    setCountLoading(false);
+    setActionsLoading(false);
+  };
+
+  const waitForAction = async (action: () => Promise<void>) => {
+    setActionsLoading(true);
+    await action();
+    setActionsLoading(false);
   };
 
   return (
@@ -78,13 +84,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
           )}
         </Typography>
         <Typography color="textSecondary" component="p">
+          Count: {product.count}
+        </Typography>
+        <Typography color="textSecondary" component="p">
           Description: {product.description}
         </Typography>
-        {count !== undefined && onCountChange && (
+      </CardContent>
+      <CardActions disableSpacing>
+        {actionsLoading ? (
+          <CircularProgress />
+        ) : (
           <>
-            {countLoading ? (
-              <CircularProgress />
-            ) : (
+            {count !== undefined && onCountChange && (
               <Box
                 display="flex"
                 justifyContent="space-between"
@@ -99,24 +110,23 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 </IconButton>
               </Box>
             )}
+
+            {onEdit && (
+              <IconButton>
+                <EditIcon onClick={() => waitForAction(onEdit)} />
+              </IconButton>
+            )}
+            {onRemove && (
+              <IconButton>
+                <DeleteIcon onClick={() => waitForAction(onRemove)} />
+              </IconButton>
+            )}
+            {onAddToCart && (
+              <IconButton>
+                <ShoppingCartIcon onClick={() => waitForAction(onAddToCart)} />
+              </IconButton>
+            )}
           </>
-        )}
-      </CardContent>
-      <CardActions disableSpacing>
-        {onEdit && (
-          <IconButton>
-            <EditIcon onClick={onEdit} />
-          </IconButton>
-        )}
-        {onRemove && (
-          <IconButton>
-            <DeleteIcon onClick={onRemove} />
-          </IconButton>
-        )}
-        {onAddToCart && (
-          <IconButton>
-            <ShoppingCartIcon onClick={onAddToCart} />
-          </IconButton>
         )}
       </CardActions>
     </Card>

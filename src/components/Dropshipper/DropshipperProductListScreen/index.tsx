@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Product, RootState } from '../../../common/types';
 import { sendRequest } from '../../../store/auth';
+import errorToString from './../../../common/errorToString';
 import ProductCard from './../../Common/ProductCard/index';
+import InfoSnackbar from './../../Unknown/InfoSnackbar/index';
 
 const DropshipperProductListScreen: React.FC = () => {
   const dispatch = useDispatch();
@@ -13,16 +15,15 @@ const DropshipperProductListScreen: React.FC = () => {
   const { currentUser } = useSelector((state: RootState) => state.user);
   const [productList, setProductList] = React.useState<Array<Product>>([]);
   const [loading, setLoading] = React.useState(false);
+  const [snackbarText, setSnackbarText] = React.useState('');
 
   React.useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const filterParams = new URLSearchParams({
-        supplier_setting: supplierId || '',
-      });
-
       const response: any = await dispatch(
-        sendRequest('get', `/products?${filterParams}`),
+        sendRequest('get', `/products`, null, {
+          supplier_setting: supplierId || '',
+        }),
       );
       setProductList(response.data || ([] as Array<Product>));
       setLoading(false);
@@ -30,8 +31,20 @@ const DropshipperProductListScreen: React.FC = () => {
     fetchData();
   }, [currentUser, dispatch, supplierId]);
 
-  const handleAddToCart = (id: number) => async () => {
-    console.log(id);
+  const handleAddToCart = (product_id: number) => async () => {
+    setSnackbarText('');
+    try {
+      await dispatch(
+        sendRequest('post', `/carts/addToCart`, null, {
+          supplier_setting_id: supplierId,
+          dropshipper_setting_id: currentUser?.dropshipper_setting?.id,
+          product_id,
+        }),
+      );
+      setSnackbarText('Added');
+    } catch (e) {
+      setSnackbarText(errorToString(e));
+    }
   };
 
   if (loading) return <CircularProgress />;
@@ -56,6 +69,7 @@ const DropshipperProductListScreen: React.FC = () => {
       ) : (
         <>Product list of this supplier is empty</>
       )}
+      <InfoSnackbar text={snackbarText} setText={setSnackbarText} />
     </>
   );
 };

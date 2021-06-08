@@ -60,7 +60,12 @@ const Navbar: React.FC<NavbarProps> = ({ tabList, onProfileClick }) => {
   return (
     <AppBar position="static">
       <Box display="flex" justifyContent="space-between">
-        <Tabs value={currentValue} onChange={onChange}>
+        <Tabs
+          value={currentValue}
+          onChange={onChange}
+          variant="scrollable"
+          scrollButtons="auto"
+        >
           {tabList.map((tab) => (
             <Tab label={tab.label} key={tab.label} value={tab.link} />
           ))}

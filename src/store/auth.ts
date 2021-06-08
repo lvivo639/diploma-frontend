@@ -23,12 +23,20 @@ const { actions, reducer } = createSlice({
 export const { setToken, resetState } = actions;
 
 export const sendRequest =
-  (method: string, url: string, payload: any = null, options: any = {}) =>
+  (
+    method: string,
+    url: string,
+    payload: any = null,
+    query: any = {},
+    options: any = {},
+  ) =>
   async (dispatch: Dispatch<any>, getState: () => RootState): Promise<any> => {
     try {
       const {
         auth: { token },
       } = getState();
+
+      const finalUrl = query ? url + '?' + new URLSearchParams(query) : url;
 
       const optionsFinal = {
         ...options,
@@ -39,15 +47,15 @@ export const sendRequest =
       };
 
       if (method === 'post') {
-        return apiClient.post(url, payload, optionsFinal);
+        return apiClient.post(finalUrl, payload, optionsFinal);
       }
       if (method === 'put') {
-        return apiClient.put(url, payload, optionsFinal);
+        return apiClient.put(finalUrl, payload, optionsFinal);
       }
       if (method === 'delete') {
-        return apiClient.delete(url, optionsFinal);
+        return apiClient.delete(finalUrl, optionsFinal);
       }
-      return apiClient.get(url, optionsFinal);
+      return apiClient.get(finalUrl, optionsFinal);
     } catch (error) {
       console.error(error);
       return null;
