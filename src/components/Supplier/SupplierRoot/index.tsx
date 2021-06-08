@@ -7,6 +7,7 @@ import PaymentTableScreen from '../PaymentTableScreen';
 import ProductEditScreen from '../ProductEditScreen';
 import SupplierOrderTableScreen from '../SupplierOrderTableScreen';
 import SupplierProductListScreen from '../SupplierProductListScreen';
+import SupplierProfileScreen from '../SupplierProfileScreen';
 import NewslettersScreen from './../NewslettersScreen/index';
 import ProductAddScreen from './../ProductAddScreen/index';
 
@@ -30,6 +31,7 @@ const SupplierRoot: React.FC = () => {
               <Route exact path="/users" component={DropshipperListScreen} />
               <Route exact path="/payments" component={PaymentTableScreen} />
               <Route exact path="/newsletters" component={NewslettersScreen} />
+              <Route exact path="/profile" component={SupplierProfileScreen} />
               <Route
                 exact
                 path="/orders"
