@@ -28,7 +28,6 @@ export interface User {
   lastName: string;
   username: string;
   email: string;
-  password: string;
   role: Role;
   created_at: string;
   supplier_setting?: SupplierSetting;
@@ -63,14 +62,14 @@ export interface SupplierSetting {
   id: number;
   storageName: string;
   description: string;
-  users_permissions_user: number;
+  users_permissions_user: User;
   header: UploadedFile;
   uniqueHash: string;
 }
 
 export interface DropshipperSetting {
   id: number;
-  users_permissions_user: number;
+  users_permissions_user: User;
   supplier_settings: Array<SupplierSetting>;
   telegramUsername?: string;
   phoneNumber?: string;

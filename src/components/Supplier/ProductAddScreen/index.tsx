@@ -1,3 +1,4 @@
+import { Box, Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -25,6 +26,10 @@ const ProductAddScreen: React.FC = () => {
 
   return (
     <>
+      <Box>
+        <Typography variant="h3">New product</Typography>
+        <Typography>Fill form to add new product</Typography>
+      </Box>
       <ProductForm onSubmit={onSubmit} />
     </>
   );

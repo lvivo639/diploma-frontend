@@ -1,4 +1,4 @@
-import { CircularProgress } from '@material-ui/core';
+import { Box, CircularProgress, Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
@@ -43,6 +43,11 @@ const ProductEditScreen: React.FC = () => {
 
   return (
     <>
+      <Box>
+        <Typography variant="h3">Edit product</Typography>
+        <Typography>Fill form with a new info and click save</Typography>
+      </Box>
+
       <ProductForm onSubmit={onSubmit} product={product} />
     </>
   );

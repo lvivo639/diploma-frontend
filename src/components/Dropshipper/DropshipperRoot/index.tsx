@@ -4,9 +4,9 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import Navbar from '../../Unknown/Navbar';
 import BalanceScreen from '../BalanceScreen';
 import CartScreen from '../CartScreen';
+import DropshipperOrderTableScreen from '../DropshipperOrderTableScreen';
 import DropshipperProductListScreen from '../DropshipperProductListScreen';
 import DropshipperProfile from '../DropshipperProfile';
-import OrderListScreen from '../OrderListScreen';
 import OrderScreen from '../OrderScreen';
 import AcceptInvitationScreen from './../AcceptInvitationScreen/index';
 import SupplierListScreen from './../SupplierListScreen/index';
@@ -76,7 +76,7 @@ const DropshipperRoot: React.FC = () => {
               <Route
                 exact
                 path="/supplier/:supplierId/orders"
-                component={OrderListScreen}
+                component={DropshipperOrderTableScreen}
               />
               <Route
                 exact

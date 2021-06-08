@@ -3,15 +3,15 @@ import { OrderStatus } from '../../../common/types';
 const getOrderStatusText = (orderStatus: OrderStatus) => {
   switch (orderStatus) {
     case 'packaging':
-      return 'packaging';
+      return 'Packaging';
     case 'sent':
-      return 'sent';
+      return 'Sent';
     case 'received':
-      return 'received';
+      return 'Received';
     case 'sentBack':
-      return 'sentBack';
+      return 'Sent back';
     default:
-      return 'undefined';
+      return 'Undefined';
   }
 };
 export default getOrderStatusText;

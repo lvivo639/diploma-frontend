@@ -30,13 +30,21 @@ const SupplierProductCard: React.FC<SupplierProductCardProps> = ({
   };
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} elevation={4}>
       <CardHeader title={product.name} />
       <CardMedia
         image={getImageUrl(product.image?.url)}
         title={product.name}
         className={classes.media}
       />
+      <CardActions disableSpacing>
+        <IconButton>
+          <EditIcon onClick={() => onEdit(product.id)} />
+        </IconButton>
+        <IconButton>
+          <DeleteIcon onClick={() => onRemove(product.id)} />
+        </IconButton>
+      </CardActions>
       <CardContent>
         <Typography color="textSecondary" component="p">
           oldPrice: {product.oldPrice}
@@ -51,14 +59,6 @@ const SupplierProductCard: React.FC<SupplierProductCardProps> = ({
           Description: {product.description}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton>
-          <EditIcon onClick={() => onEdit(product.id)} />
-        </IconButton>
-        <IconButton>
-          <DeleteIcon onClick={() => onRemove(product.id)} />
-        </IconButton>
-      </CardActions>
     </Card>
   );
 };

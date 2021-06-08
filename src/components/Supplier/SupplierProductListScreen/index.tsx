@@ -1,4 +1,10 @@
-import { CircularProgress, Grid, IconButton } from '@material-ui/core';
+import {
+  Box,
+  CircularProgress,
+  Grid,
+  IconButton,
+  Typography,
+} from '@material-ui/core';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -52,10 +58,20 @@ const SupplierProductListScreen: React.FC = () => {
 
   return (
     <>
-      <IconButton onClick={() => history.push('/products/add')}>
-        <AddCircleOutlineIcon />
-      </IconButton>
-      <Grid container spacing={2} justify="center">
+      <Box display="flex" justifyContent="space-between" mb={4}>
+        <Box>
+          <Typography variant="h3">Your products</Typography>
+          <Typography>
+            You can change existing or create new one clicked on add button
+          </Typography>
+        </Box>
+        <Box>
+          <IconButton onClick={() => history.push('/products/add')}>
+            <AddCircleOutlineIcon />
+          </IconButton>
+        </Box>
+      </Box>
+      <Grid container spacing={2} justify="flex-start">
         {productList.map((product) => (
           <Grid item>
             <SupplierProductCard

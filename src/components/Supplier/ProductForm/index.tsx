@@ -1,6 +1,7 @@
 import { Box, Button, TextField } from '@material-ui/core';
 import { Form, Formik, FormikProps } from 'formik';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import getImageUrl from './../../../common/getImageUrl';
 import { Product } from './../../../common/types';
 import { ProductFormikProps } from './types';
@@ -15,6 +16,7 @@ type ProductFormProps = {
 const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit }) => {
   const [image, setImage] = React.useState<File | undefined>(undefined);
   const classes = useStyles();
+  const history = useHistory();
   const initialValues: ProductFormikProps = {
     name: product?.name || '',
     description: product?.description || '',
@@ -28,6 +30,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit }) => {
 
   const handleSubmit = async (values: ProductFormikProps) => {
     await onSubmit({ ...values, files: { image } });
+  };
+
+  const onCancel = () => {
+    history.push('/products');
   };
 
   return (
@@ -135,10 +141,15 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit }) => {
                 />
               )}
             </Box>
-            <Box p={2}>
-              <Button type="submit" variant="contained">
+            <Box display="flex" p={2}>
+              <Button type="submit" variant="outlined">
                 Save
               </Button>
+              <Box ml={2}>
+                <Button variant="outlined" onClick={onCancel}>
+                  Cancel
+                </Button>
+              </Box>
             </Box>
           </Form>
         );
