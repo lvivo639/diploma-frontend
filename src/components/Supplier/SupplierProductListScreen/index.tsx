@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Grid, IconButton } from '@material-ui/core';
+import { Box, Grid, IconButton } from '@material-ui/core';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -53,12 +53,11 @@ const SupplierProductListScreen: React.FC = () => {
     setLoading(false);
   };
 
-  if (loading) return <CircularProgress />;
-
   return (
     <BasicPaper
       title="Your products"
       subtitle=" You can change existing or create new one clicked on add button"
+      loading={loading}
     >
       <Box>
         <IconButton onClick={() => history.push('/products/add')}>

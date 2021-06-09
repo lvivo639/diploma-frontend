@@ -64,10 +64,14 @@ const OrderScreen: React.FC = () => {
     }
   };
 
-  if (loading || minimumPrice === undefined) return <CircularProgress />;
+  if (minimumPrice === undefined) return <CircularProgress />;
 
   return (
-    <BasicPaper title="Create an order" subtitle="Fill form to create an order">
+    <BasicPaper
+      title="Create an order"
+      subtitle="Fill form to create an order"
+      loading={loading}
+    >
       <Button onClick={backToCart} variant="outlined">
         Back to Cart
       </Button>

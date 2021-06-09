@@ -1,4 +1,3 @@
-import { CircularProgress } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
@@ -40,12 +39,11 @@ const ProductEditScreen: React.FC = () => {
     setLoading(false);
   };
 
-  if (loading) return <CircularProgress />;
-
   return (
     <BasicPaper
       title="Edit product"
       subtitle="Fill form with a new info and click save"
+      loading={loading}
     >
       <ProductForm onSubmit={onSubmit} product={product} />
     </BasicPaper>

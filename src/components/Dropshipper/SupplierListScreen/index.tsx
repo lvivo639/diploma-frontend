@@ -1,4 +1,4 @@
-import { CircularProgress, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -40,13 +40,12 @@ const SupplierListScreen: React.FC<SupplierListScreenProps> = ({
     fetchData();
   }, [currentUser, dispatch]);
 
-  if (loading) return <CircularProgress />;
-
   return (
     <BasicPaper
       title="Your supplier list"
       subtitle="Click on supplier card to watch product list, your orders, balance and
       supplier settings."
+      loading={loading}
     >
       {supplierList.length ? (
         <Grid container spacing={2} justify="flex-start">

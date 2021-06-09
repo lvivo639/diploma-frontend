@@ -6,6 +6,7 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core';
+import formatISO from 'date-fns/formatISO';
 import React from 'react';
 import { Payment } from '../../../common/types';
 import BasicPaper from '../../Unknown/BasicPaper';
@@ -15,8 +16,8 @@ import useStyles from './useStyles';
 const paymentList: Array<Partial<Payment>> = [
   {
     id: 1,
-    paymentTime: 1623062138042,
-    cost: 100,
+    paymentDateTime: '2018-04-23T10:26:00.996Z',
+    amount: 100,
     dropshipper_setting: {
       id: 1,
       telegramUsername: '111',
@@ -39,8 +40,8 @@ const paymentList: Array<Partial<Payment>> = [
   },
   {
     id: 1,
-    paymentTime: -1,
-    cost: 100,
+    paymentDateTime: '2018-04-23T10:26:00.996Z',
+    amount: 100,
     dropshipper_setting: {
       id: 1,
       telegramUsername: '111',
@@ -63,8 +64,8 @@ const paymentList: Array<Partial<Payment>> = [
   },
   {
     id: 1,
-    paymentTime: 1623062138042,
-    cost: 1001,
+    paymentDateTime: '2018-04-23T10:26:00.996Z',
+    amount: 1001,
     dropshipper_setting: {
       id: 1,
       telegramUsername: '111',
@@ -87,8 +88,8 @@ const paymentList: Array<Partial<Payment>> = [
   },
   {
     id: 1,
-    paymentTime: 1623062138042,
-    cost: 100,
+    paymentDateTime: '2018-04-23T10:26:00.996Z',
+    amount: 100,
     dropshipper_setting: {
       id: 1,
       telegramUsername: '111',
@@ -114,7 +115,7 @@ const paymentList: Array<Partial<Payment>> = [
 const PaymentTableScreen: React.FC = () => {
   const classes = useStyles();
   const handlePaidChange = (id: number) => async (value: boolean) => {
-    return value ? new Date().getTime() : -1;
+    return value ? formatISO(new Date()) : undefined;
   };
   return (
     <BasicPaper

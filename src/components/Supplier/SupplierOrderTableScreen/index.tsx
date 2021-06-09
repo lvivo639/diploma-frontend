@@ -87,8 +87,8 @@ const SupplierOrderTableScreen: React.FC = () => {
     console.log(id, status);
   };
 
-  const handleDeliveryCostChange = (id: number) => async (cost: number) => {
-    console.log(id, cost);
+  const handleDeliveryAmountChange = (id: number) => async (amount: number) => {
+    console.log(id, amount);
   };
 
   return (
@@ -98,7 +98,7 @@ const SupplierOrderTableScreen: React.FC = () => {
           <SupplierOrderItem
             order={order}
             onStatusChange={handleStatusChange(order.id)}
-            onDeliveryCostChange={handleDeliveryCostChange(order.id)}
+            onDeliveryAmountChange={handleDeliveryAmountChange(order.id)}
           />
         ))}
       </OrderTable>

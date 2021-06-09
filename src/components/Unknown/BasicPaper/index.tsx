@@ -1,14 +1,16 @@
-import { Box, Typography } from '@material-ui/core';
+import { Box, CircularProgress, Typography } from '@material-ui/core';
 import React from 'react';
 
 type BasicPaperProps = {
   title?: string;
   subtitle?: string;
+  loading?: boolean;
 };
 
 const BasicPaper: React.FC<BasicPaperProps> = ({
   title,
   subtitle,
+  loading = false,
   children,
 }) => {
   return (
@@ -19,7 +21,7 @@ const BasicPaper: React.FC<BasicPaperProps> = ({
           <Typography>{subtitle}</Typography>
         </Box>
       )}
-      {children}
+      {loading ? <CircularProgress /> : <>{children}</>}
     </Box>
   );
 };

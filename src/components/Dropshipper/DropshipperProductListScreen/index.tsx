@@ -1,4 +1,4 @@
-import { CircularProgress, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
@@ -53,12 +53,11 @@ const DropshipperProductListScreen: React.FC = () => {
     }
   };
 
-  if (loading) return <CircularProgress />;
-
   return (
     <BasicPaper
       title="Supplier product list"
       subtitle="Add products to cart to create an order"
+      loading={loading}
     >
       {productList.length ? (
         <Grid container spacing={2} justify="flex-start">

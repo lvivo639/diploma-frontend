@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Grid,
-  Typography,
-} from '@material-ui/core';
+import { Box, Button, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -85,10 +79,12 @@ const CartScreen: React.FC = () => {
     history.push(`/supplier/${supplierId}/cart/order`);
   };
 
-  if (loading) return <CircularProgress />;
-
   return (
-    <BasicPaper title="Cart" subtitle="Add some products to create an order">
+    <BasicPaper
+      title="Cart"
+      subtitle="Add some products to create an order"
+      loading={loading}
+    >
       {productOrderList.length ? (
         <>
           <Box mb={2}>

@@ -1,4 +1,3 @@
-import { CircularProgress } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
@@ -39,10 +38,8 @@ const DropshipperOrderTableScreen: React.FC = () => {
     fetchData();
   }, [currentUser, dispatch, supplierId]);
 
-  if (loading) return <CircularProgress />;
-
   return (
-    <BasicPaper title="Orders" subtitle="Order history">
+    <BasicPaper title="Orders" subtitle="Order history" loading={loading}>
       <OrderTable>
         {orderList.map((order) => (
           <DropshipperOrderItem order={order} />

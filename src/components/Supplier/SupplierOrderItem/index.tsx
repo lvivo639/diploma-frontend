@@ -16,13 +16,13 @@ import useStyles from './../../Common/OrderTable/useStyles';
 type SupplierOrderItemProps = {
   order: Order;
   onStatusChange: (status: OrderStatus) => Promise<void>;
-  onDeliveryCostChange: (cost: number) => Promise<void>;
+  onDeliveryAmountChange: (amount: number) => Promise<void>;
 };
 
 const SupplierOrderItem: React.FC<SupplierOrderItemProps> = ({
   order,
   onStatusChange,
-  onDeliveryCostChange,
+  onDeliveryAmountChange,
 }) => {
   const classes = useStyles();
   const [loadingStatus, setLoadingStatus] = React.useState(false);
