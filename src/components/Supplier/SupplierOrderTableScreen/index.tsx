@@ -4,86 +4,9 @@ import { Order, OrderStatus, RootState } from '../../../common/types';
 import { sendRequest } from '../../../store/auth';
 import OrderTable from '../../Common/OrderTable';
 import BasicPaper from '../../Unknown/BasicPaper';
+import InfoSnackbar from '../../Unknown/InfoSnackbar';
 import SupplierOrderItem from '../SupplierOrderItem/index';
 import errorToString from './../../../common/errorToString';
-
-const orderList1: Array<Order> = [
-  {
-    id: 1,
-    product_orders: [
-      {
-        id: 1,
-        product: {
-          id: 1,
-          name: 'id',
-          image: {
-            _id: '1',
-            name: 'a',
-            url: '/11111111',
-          },
-          description: 'asdsdfa',
-          price: 1,
-          oldPrice: 1,
-          count: 2,
-          suplier_setting_id: 1,
-        },
-        price: 135,
-        count: 1,
-      },
-      {
-        id: 1,
-        product: {
-          id: 1,
-          name: 'id',
-          image: {
-            _id: '1',
-            name: 'a',
-            url: '/11111111',
-          },
-          description: 'asdsdfa',
-          price: 1,
-          oldPrice: 1,
-          count: 2,
-          suplier_setting_id: 1,
-        },
-        price: 135,
-        count: 1,
-      },
-    ],
-    address: 'address',
-    fullName: 'fullName',
-    description: 'description',
-    price: 12,
-    status: 'packaging',
-  },
-  {
-    id: 1,
-    product_orders: [],
-    address: 'address',
-    fullName: 'fullName',
-    description: 'description',
-    price: 12,
-    status: 'sent',
-  },
-  {
-    id: 1,
-    product_orders: [],
-    address: 'address',
-    fullName: 'fullName',
-    description: 'description',
-    price: 12,
-    status: 'received',
-  },
-  {
-    id: 1,
-    product_orders: [],
-    address: 'address',
-    fullName: 'fullName',
-    description: 'description',
-    price: 12,
-    status: 'sentBack',
-  },
-];
 
 const SupplierOrderTableScreen: React.FC = () => {
   const dispatch = useDispatch();
@@ -115,9 +38,14 @@ const SupplierOrderTableScreen: React.FC = () => {
     setSnackbarText('');
     try {
       await dispatch(
-        sendRequest('post', `/supplier-settings/changeStatus/${id}`, null, {
-          status,
-        }),
+        sendRequest(
+          'post',
+          `/supplier-settings/changeOrderStatus/${id}`,
+          null,
+          {
+            status,
+          },
+        ),
       );
 
       const response: any = await dispatch(
@@ -144,6 +72,11 @@ const SupplierOrderTableScreen: React.FC = () => {
           />
         ))}
       </OrderTable>
+      <InfoSnackbar
+        text={snackbarText}
+        setText={setSnackbarText}
+        severity="error"
+      />
     </BasicPaper>
   );
 };

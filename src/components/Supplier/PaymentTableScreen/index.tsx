@@ -6,121 +6,65 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core';
-import formatISO from 'date-fns/formatISO';
 import React from 'react';
-import { Payment } from '../../../common/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { Payment, RootState } from '../../../common/types';
+import { sendRequest } from '../../../store/auth';
 import BasicPaper from '../../Unknown/BasicPaper';
+import InfoSnackbar from '../../Unknown/InfoSnackbar';
 import PaymentItem from '../PaymentItem';
+import errorToString from './../../../common/errorToString';
 import useStyles from './useStyles';
-
-const paymentList: Array<Partial<Payment>> = [
-  {
-    id: 1,
-    paymentDateTime: '2018-04-23T10:26:00.996Z',
-    amount: 100,
-    dropshipper_setting: {
-      id: 1,
-      telegramUsername: '111',
-      phoneNumber: '111',
-      cardNumber: '111',
-      users_permissions_user: {
-        id: 1,
-        firstName: 'aaaaa',
-        lastName: 'aaaaa',
-        username: 'aaaaa',
-        email: 'aaaaa',
-        role: {
-          name: 'a',
-          type: 'a',
-        },
-        created_at: 'aaaaa',
-      },
-      supplier_settings: [],
-    },
-  },
-  {
-    id: 1,
-    paymentDateTime: '2018-04-23T10:26:00.996Z',
-    amount: 100,
-    dropshipper_setting: {
-      id: 1,
-      telegramUsername: '111',
-      phoneNumber: '111',
-      cardNumber: '111',
-      users_permissions_user: {
-        id: 1,
-        firstName: 'aaaaa',
-        lastName: 'aaaaa',
-        username: 'aaaaa',
-        email: 'aaaaa',
-        role: {
-          name: 'a',
-          type: 'a',
-        },
-        created_at: 'aaaaa',
-      },
-      supplier_settings: [],
-    },
-  },
-  {
-    id: 1,
-    paymentDateTime: '2018-04-23T10:26:00.996Z',
-    amount: 1001,
-    dropshipper_setting: {
-      id: 1,
-      telegramUsername: '111',
-      phoneNumber: '111',
-      cardNumber: '111',
-      users_permissions_user: {
-        id: 1,
-        firstName: 'aaaaa',
-        lastName: 'aaaaa',
-        username: 'aaaaa',
-        email: 'aaaaa',
-        role: {
-          name: 'a',
-          type: 'a',
-        },
-        created_at: 'aaaaa',
-      },
-      supplier_settings: [],
-    },
-  },
-  {
-    id: 1,
-    paymentDateTime: '2018-04-23T10:26:00.996Z',
-    amount: 100,
-    dropshipper_setting: {
-      id: 1,
-      telegramUsername: '111',
-      phoneNumber: '111',
-      cardNumber: '111',
-      users_permissions_user: {
-        id: 1,
-        firstName: 'aaaaa',
-        lastName: 'aaaaa',
-        username: 'aaaaa',
-        email: 'aaaaa',
-        role: {
-          name: 'a',
-          type: 'a',
-        },
-        created_at: 'aaaaa',
-      },
-      supplier_settings: [],
-    },
-  },
-];
 
 const PaymentTableScreen: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const { currentUser } = useSelector((state: RootState) => state.user);
+  const [paymentList, setPaymentList] = React.useState<Array<Payment>>([]);
+  const [loading, setLoading] = React.useState(false);
+  const [snackbarText, setSnackbarText] = React.useState('');
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      setSnackbarText('');
+      try {
+        setLoading(true);
+        const response: any = await dispatch(
+          sendRequest('get', `/supplier-settings/payments`),
+        );
+
+        setPaymentList((response.data || []) as Array<Payment>);
+      } catch (e) {
+        setSnackbarText(errorToString(e));
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, [currentUser, dispatch]);
+
   const handlePaidChange = (id: number) => async (value: boolean) => {
-    return value ? formatISO(new Date()) : undefined;
+    setSnackbarText('');
+    try {
+      await dispatch(
+        sendRequest('post', `/supplier-settings/changePaymentStatus/${id}`),
+      );
+
+      const response: any = await dispatch(
+        sendRequest('get', `/supplier-settings/payments`),
+      );
+
+      setPaymentList((response.data || []) as Array<Payment>);
+    } catch (e) {
+      setSnackbarText(errorToString(e));
+    }
   };
+
   return (
     <BasicPaper
       title="Payment requests"
       subtitle="Check 'paid' only after money was sent"
+      loading={loading}
     >
       <TableContainer component={Paper} className={classes.tableRoot}>
         <TableContainer aria-label="simple table">
@@ -145,6 +89,11 @@ const PaymentTableScreen: React.FC = () => {
           </TableBody>
         </TableContainer>
       </TableContainer>
+      <InfoSnackbar
+        text={snackbarText}
+        setText={setSnackbarText}
+        severity="error"
+      />
     </BasicPaper>
   );
 };
