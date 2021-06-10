@@ -46,7 +46,7 @@ const DropshipperProfileScreen: React.FC = () => {
       {currentUser?.dropshipper_setting && (
         <Box m={4}>
           <Paper classes={{ root: classes.paperRoot }}>
-            <Typography variant="h5">Dropdhipper settings</Typography>
+            <Typography variant="h5">Dropshipper settings</Typography>
             <DropshipperSettingsForm
               onSubmit={onDropshipperSettingsSubmit}
               dropshippersSettings={currentUser?.dropshipper_setting}

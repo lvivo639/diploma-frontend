@@ -72,7 +72,7 @@ const OrderScreen: React.FC = () => {
       subtitle="Fill form to create an order"
       loading={loading}
     >
-      <Button onClick={backToCart} variant="outlined">
+      <Button onClick={backToCart} variant="outlined" color="primary">
         Back to Cart
       </Button>
       <Box mt={2}>

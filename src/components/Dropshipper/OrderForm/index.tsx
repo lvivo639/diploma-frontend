@@ -94,7 +94,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ minimumPrice, onSubmit }) => {
             </Box>
 
             <Box p={2}>
-              <Button type="submit" variant="contained">
+              <Button type="submit" variant="contained" color="primary">
                 Create order
               </Button>
             </Box>

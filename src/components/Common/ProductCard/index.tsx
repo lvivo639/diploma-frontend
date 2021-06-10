@@ -70,10 +70,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
         className={classes.media}
       />
       <CardContent>
-        <Typography color="textSecondary" variant="h5" component="p">
+        <Typography variant="h5" component="p">
           {product.price}
           {' UAH '}
-          {product.oldPrice !== undefined && (
+          {product.oldPrice && (
             <Typography
               color="textSecondary"
               variant="h6"
@@ -84,10 +84,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
             </Typography>
           )}
         </Typography>
-        <Typography color="textSecondary" component="p">
-          Count: {product.count}
-        </Typography>
-        <Typography color="textSecondary" component="p">
+        <Typography component="p">Count: {product.count}</Typography>
+        <Typography component="p">
           Description: {product.description}
         </Typography>
       </CardContent>
@@ -114,17 +112,26 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
             {onEdit && (
               <IconButton>
-                <EditIcon onClick={() => waitForAction(onEdit)} />
+                <EditIcon
+                  color="secondary"
+                  onClick={() => waitForAction(onEdit)}
+                />
               </IconButton>
             )}
             {onRemove && (
               <IconButton>
-                <DeleteIcon onClick={() => waitForAction(onRemove)} />
+                <DeleteIcon
+                  color="error"
+                  onClick={() => waitForAction(onRemove)}
+                />
               </IconButton>
             )}
             {onAddToCart && product.count && (
               <IconButton>
-                <ShoppingCartIcon onClick={() => waitForAction(onAddToCart)} />
+                <ShoppingCartIcon
+                  color="primary"
+                  onClick={() => waitForAction(onAddToCart)}
+                />
               </IconButton>
             )}
           </>

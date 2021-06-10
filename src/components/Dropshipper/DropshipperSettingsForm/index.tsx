@@ -118,7 +118,7 @@ const DropshipperSettingsForm: React.FC<DropshipperSettingsFormProps> = ({
               />
             </Box>
             <Box p={2}>
-              <Button type="submit" variant="contained">
+              <Button type="submit" variant="contained" color="primary">
                 Save
               </Button>
             </Box>

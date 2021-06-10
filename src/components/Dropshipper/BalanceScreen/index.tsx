@@ -125,7 +125,11 @@ const BalanceScreen: React.FC = () => {
             onChange={onAmountChange}
           />
           <Box mt={2}>
-            <Button variant="outlined" onClick={handleAmountSubmit}>
+            <Button
+              variant="outlined"
+              onClick={handleAmountSubmit}
+              color="primary"
+            >
               Create
             </Button>
           </Box>

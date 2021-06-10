@@ -18,14 +18,12 @@ const SupplierProductListScreen: React.FC = () => {
   const { currentUser } = useSelector((state: RootState) => state.user);
 
   React.useEffect(() => {
+    setLoading(true);
     const fetchData = async () => {
-      setLoading(true);
-      const filterParams = new URLSearchParams({
-        supplier_setting: currentUser?.supplier_setting?.id?.toString() || '',
-      });
-
       const response: any = await dispatch(
-        sendRequest('get', `/products?${filterParams}`),
+        sendRequest('get', `/products`, null, {
+          supplier_setting: currentUser?.supplier_setting?.id || '',
+        }),
       );
       setProductList(response.data as Array<Product>);
       setLoading(false);
@@ -41,12 +39,10 @@ const SupplierProductListScreen: React.FC = () => {
     setLoading(true);
     await dispatch(sendRequest('delete', `/products/${id}`));
 
-    const filterParams = new URLSearchParams({
-      supplier_setting: currentUser?.supplier_setting?.id?.toString() || '',
-    });
-
     const response: any = await dispatch(
-      sendRequest('get', `/products?${filterParams}`),
+      sendRequest('get', `/products`, null, {
+        supplier_setting: currentUser?.supplier_setting?.id || '',
+      }),
     );
     setProductList(response.data as Array<Product>);
 
@@ -61,7 +57,7 @@ const SupplierProductListScreen: React.FC = () => {
     >
       <Box>
         <IconButton onClick={() => history.push('/products/add')}>
-          <AddCircleOutlineIcon />
+          <AddCircleOutlineIcon color="secondary" />
         </IconButton>
       </Box>
       <Grid container spacing={2} justify="flex-start">

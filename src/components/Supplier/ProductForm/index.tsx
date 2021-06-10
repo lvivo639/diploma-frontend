@@ -142,11 +142,11 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit }) => {
               )}
             </Box>
             <Box display="flex" p={2}>
-              <Button type="submit" variant="outlined">
+              <Button type="submit" variant="outlined" color="primary">
                 Save
               </Button>
               <Box ml={2}>
-                <Button variant="outlined" onClick={onCancel}>
+                <Button variant="outlined" onClick={onCancel} color="secondary">
                   Cancel
                 </Button>
               </Box>

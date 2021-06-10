@@ -88,7 +88,7 @@ const CartScreen: React.FC = () => {
       {productOrderList.length ? (
         <>
           <Box mb={2}>
-            <Button variant="outlined" onClick={createOrder}>
+            <Button variant="outlined" onClick={createOrder} color="primary">
               Create an order
             </Button>
           </Box>

@@ -81,7 +81,7 @@ const PasswordSettingsForm: React.FC<PasswordSettingsFormProps> = ({
               />
             </Box>
             <Box p={2}>
-              <Button type="submit" variant="contained">
+              <Button type="submit" variant="contained" color="primary">
                 Change
               </Button>
             </Box>
