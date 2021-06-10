@@ -4,7 +4,7 @@ import {
   MenuItem,
   Select,
   TableCell,
-  TableRow,
+  TableRow
 } from '@material-ui/core';
 import React from 'react';
 import { Order, OrderStatus } from '../../../common/types';
@@ -16,13 +16,11 @@ import useStyles from './../../Common/OrderTable/useStyles';
 type SupplierOrderItemProps = {
   order: Order;
   onStatusChange: (status: OrderStatus) => Promise<void>;
-  onDeliveryAmountChange: (amount: number) => Promise<void>;
 };
 
 const SupplierOrderItem: React.FC<SupplierOrderItemProps> = ({
   order,
   onStatusChange,
-  onDeliveryAmountChange,
 }) => {
   const classes = useStyles();
   const [loadingStatus, setLoadingStatus] = React.useState(false);

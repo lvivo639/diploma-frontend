@@ -1,16 +1,18 @@
+import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ChangeHistoryIcon from '@material-ui/icons/ChangeHistory';
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { ProductOrder } from '../../../common/types';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      maxWidth: 360,
+      maxWidth: 560,
     },
     item: {
       paddingTop: 0,
@@ -30,11 +32,16 @@ const ProductListCell: React.FC<ProductListCellProps> = ({ productOrders }) => {
       {productOrders.map((productOrder) => (
         <ListItem className={classes.item}>
           <ListItemIcon>
-            <ChevronRightIcon />
+            <ChangeHistoryIcon />
           </ListItemIcon>
-          <ListItemText
-            primary={`${productOrder.product.name} x${productOrder.count}`}
-          />
+          <ListItemText>
+            <Button
+              component={RouterLink}
+              to={`/products/${productOrder.product.id}`}
+            >
+              {productOrder.product.name} <b>x{productOrder.count}</b>
+            </Button>
+          </ListItemText>
         </ListItem>
       ))}
     </List>
