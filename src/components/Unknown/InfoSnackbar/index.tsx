@@ -12,7 +12,7 @@ type InfoSnackbarProps = {
 const InfoSnackbar: React.FC<InfoSnackbarProps> = ({
   text,
   setText,
-  duration = 1000,
+  duration = 3000,
   severity = 'info',
 }) => {
   return (

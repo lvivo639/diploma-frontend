@@ -1,32 +1,22 @@
 import { Box, Button, TextField } from '@material-ui/core';
 import { Form, Formik, FormikProps } from 'formik';
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../common/types';
 import { UserFormikProps } from './types';
 import validationSchema from './validationSchema';
 
 type UserSettingsFormProps = {
+  initialValues: UserFormikProps;
   onSubmit: (values: UserFormikProps) => Promise<void>;
 };
 
-const UserSettingsForm: React.FC<UserSettingsFormProps> = ({ onSubmit }) => {
-  const { currentUser } = useSelector((state: RootState) => state.user);
-
-  const initialValues: UserFormikProps = {
-    firstName: currentUser?.firstName || '',
-    lastName: currentUser?.lastName || '',
-    email: currentUser?.email || '',
-  };
-
-  const handleSubmit = async (values: UserFormikProps) => {
-    await onSubmit(values);
-  };
-
+const UserSettingsForm: React.FC<UserSettingsFormProps> = ({
+  onSubmit,
+  initialValues,
+}) => {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
       {({

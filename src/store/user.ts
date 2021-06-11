@@ -145,7 +145,7 @@ export const getCurrentUser =
   async (dispatch: Dispatch<any>, getState: () => RootState): Promise<void> => {
     try {
       dispatch(getCurrentUserRequest());
-      const url = '/users/me';
+      const url = '/users/fetchAuthenticatedUser';
       const {
         auth: { token },
       } = getState();

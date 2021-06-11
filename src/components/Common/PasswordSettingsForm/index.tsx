@@ -5,26 +5,18 @@ import { PasswordFormikProps } from './types';
 import validationSchema from './validationSchema';
 
 type PasswordSettingsFormProps = {
+  initialValues: PasswordFormikProps;
   onSubmit: (values: PasswordFormikProps) => Promise<void>;
 };
 
 const PasswordSettingsForm: React.FC<PasswordSettingsFormProps> = ({
   onSubmit,
+  initialValues,
 }) => {
-  const initialValues: PasswordFormikProps = {
-    password: '',
-    newPassword: '',
-    passwordConfirm: '',
-  };
-
-  const handleSubmit = async (values: PasswordFormikProps) => {
-    await onSubmit(values);
-  };
-
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
       {({

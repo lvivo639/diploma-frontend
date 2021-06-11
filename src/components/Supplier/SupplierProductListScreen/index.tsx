@@ -3,10 +3,12 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import errorToString from '../../../common/errorToString';
 import { Product, RootState } from '../../../common/types';
 import { sendRequest } from '../../../store/auth';
 import ProductCard from '../../Common/ProductCard';
 import BasicPaper from '../../Unknown/BasicPaper';
+import InfoSnackbar from '../../Unknown/InfoSnackbar';
 
 const SupplierProductListScreen: React.FC = () => {
   const dispatch = useDispatch();
@@ -14,22 +16,31 @@ const SupplierProductListScreen: React.FC = () => {
   const [productList, setProductList] = React.useState<Array<Product>>([]);
 
   const [loading, setLoading] = React.useState(false);
+  const [snackbarText, setSnackbarText] = React.useState('');
 
   const { currentUser } = useSelector((state: RootState) => state.user);
 
   React.useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
-      const response: any = await dispatch(
-        sendRequest('get', `/products`, null, {
-          supplier_setting: currentUser?.supplier_setting?.id || '',
-        }),
-      );
-      setProductList(response.data as Array<Product>);
+      setSnackbarText('');
+      try {
+        setLoading(true);
+        const response: any = await dispatch(
+          sendRequest('get', `/products`, null, {
+            supplier_setting: currentUser?.supplier_setting?.id || '',
+          }),
+        );
+        setProductList(response.data as Array<Product>);
+      } catch (e) {
+        setSnackbarText(errorToString(e));
+      }
       setLoading(false);
     };
     fetchData();
   }, [currentUser, dispatch]);
+
+  const handleAdd = () => history.push('/products/add');
 
   const handleEdit = (id: number) => async () => {
     history.push(`/products/${id}`);
@@ -56,7 +67,7 @@ const SupplierProductListScreen: React.FC = () => {
       loading={loading}
     >
       <Box>
-        <IconButton onClick={() => history.push('/products/add')}>
+        <IconButton onClick={handleAdd}>
           <AddCircleOutlineIcon color="secondary" />
         </IconButton>
       </Box>
@@ -71,6 +82,11 @@ const SupplierProductListScreen: React.FC = () => {
           </Grid>
         ))}
       </Grid>
+      <InfoSnackbar
+        text={snackbarText}
+        setText={setSnackbarText}
+        severity="error"
+      />
     </BasicPaper>
   );
 };
