@@ -7,7 +7,7 @@ import validationSchema from './validationSchema';
 
 type SupplierSettingsFormProps = {
   onSubmit: (values: SupplierSettingsFormikProps) => Promise<void>;
-  onUniqueHashChange: () => Promise<string>;
+  onUniqueHashChange: () => Promise<void>;
   supplierSettings: SupplierSetting;
 };
 
@@ -17,9 +17,6 @@ const SupplierSettingsForm: React.FC<SupplierSettingsFormProps> = ({
   onUniqueHashChange,
 }) => {
   const [loading, setLoading] = React.useState(false);
-  const [uniqueHash, setUniqueHash] = React.useState(
-    supplierSettings?.uniqueHash || '',
-  );
 
   const initialValues: SupplierSettingsFormikProps = {
     storageName: supplierSettings?.storageName || '',
@@ -32,8 +29,7 @@ const SupplierSettingsForm: React.FC<SupplierSettingsFormProps> = ({
 
   const handleUniqueHashChange = async () => {
     setLoading(true);
-    const newHash = await onUniqueHashChange();
-    setUniqueHash(newHash);
+    await onUniqueHashChange();
     setLoading(false);
   };
 
@@ -89,7 +85,9 @@ const SupplierSettingsForm: React.FC<SupplierSettingsFormProps> = ({
                   variant="outlined"
                   fullWidth
                   value={
-                    process.env.REACT_APP_FRONTEND_URL + '/invite/' + uniqueHash
+                    process.env.REACT_APP_FRONTEND_URL +
+                    '/invite/' +
+                    supplierSettings?.uniqueHash
                   }
                   helperText={
                     'Your invite link. Share it to give access users to your product list'

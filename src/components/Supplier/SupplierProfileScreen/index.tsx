@@ -15,14 +15,14 @@ import SupplierSettingsForm from './../SupplierSettingsForm/index';
 const SupplierProfileScreen: React.FC = () => {
   const { currentUser } = useSelector((state: RootState) => state.user);
 
-  const [loadingForm, setLoadingForm] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [snackbarText, setSnackbarText] = React.useState('');
   const dispatch = useDispatch();
 
   const handleSupplierSettingsSubmit = async (
     values: SupplierSettingsFormikProps,
   ) => {
-    setLoadingForm(true);
+    setLoading(true);
     setSnackbarText('');
     try {
       await dispatch(
@@ -32,14 +32,22 @@ const SupplierProfileScreen: React.FC = () => {
     } catch (e) {
       setSnackbarText(errorToString(e));
     }
-    setLoadingForm(false);
+    setLoading(false);
   };
 
   const handleUniqueHashChange = async () => {
-    return new Date().getTime().toString();
+    setSnackbarText('');
+    try {
+      await dispatch(
+        sendRequest('post', `/supplier-settings/changeUniqueHash`),
+      );
+      await dispatch(getCurrentUser());
+    } catch (e) {
+      setSnackbarText(errorToString(e));
+    }
   };
 
-  if (loadingForm) return <CircularProgress />;
+  if (loading) return <CircularProgress />;
   return (
     <BasicPaper title="Profile" subtitle="Settings you can change">
       <UserSettings />
