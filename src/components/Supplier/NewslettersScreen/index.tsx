@@ -1,18 +1,40 @@
 import { Box, Button, TextField } from '@material-ui/core';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import errorToString from '../../../common/errorToString';
+import { sendRequest } from '../../../store/auth';
 import BasicPaper from '../../Unknown/BasicPaper';
+import InfoSnackbar from '../../Unknown/InfoSnackbar';
 
 const NewslettersScreen: React.FC = () => {
-  const [msgText, setMsgText] = React.useState('');
+  const [text, setText] = React.useState('');
 
   const handleMsgTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setMsgText(e.target.value as string);
+    setText(e.target.value as string);
+  };
+
+  const dispatch = useDispatch();
+  const [loading, setLoading] = React.useState(false);
+  const [snackbarText, setSnackbarText] = React.useState('');
+
+  const handleSendMessage = async () => {
+    setSnackbarText('');
+    try {
+      setLoading(true);
+      await dispatch(
+        sendRequest('post', `/supplier-settings/sendNewsletter`, { text }),
+      );
+    } catch (e) {
+      setSnackbarText(errorToString(e));
+    }
+    setLoading(false);
   };
 
   return (
     <BasicPaper
       title="Newsletters"
       subtitle="Send message to your dropshippers"
+      loading={loading}
     >
       <Box maxWidth={500} display="flex" flexDirection="column">
         <TextField
@@ -22,15 +44,24 @@ const NewslettersScreen: React.FC = () => {
           rows={10}
           fullWidth
           variant="outlined"
-          value={msgText}
+          value={text}
           onChange={handleMsgTextChange}
         />
         <Box mt={2}>
-          <Button variant="outlined" color="primary">
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={handleSendMessage}
+          >
             Send
           </Button>
         </Box>
       </Box>
+      <InfoSnackbar
+        text={snackbarText}
+        setText={setSnackbarText}
+        severity="error"
+      />
     </BasicPaper>
   );
 };
