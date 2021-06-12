@@ -29,7 +29,7 @@ const ProductEditScreen: React.FC = () => {
     fetchData();
   }, [dispatch, id]);
 
-  const onSubmit = async (values: ProductFormikProps) => {
+  const onSubmit = async (values: ProductFormikProps, image: any) => {
     setLoading(true);
     await dispatch(
       sendRequest('put', `/products/${id}`, {
@@ -37,6 +37,29 @@ const ProductEditScreen: React.FC = () => {
         supplier_setting: currentUser?.supplier_setting?.id,
       }),
     );
+
+    if (image) {
+      let formData = new FormData();
+      formData.append('files', image);
+      formData.append('ref', 'product');
+      formData.append('refId', id.toString());
+      formData.append('field', 'image');
+
+      await dispatch(
+        sendRequest(
+          'post',
+          '/upload',
+          formData,
+          {},
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          },
+        ),
+      );
+    }
+
     setLoading(false);
     history.push('/products');
   };

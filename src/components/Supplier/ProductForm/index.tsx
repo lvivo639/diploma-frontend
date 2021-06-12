@@ -9,7 +9,7 @@ import useStyles from './useStyles';
 import validationSchema from './validationSchema';
 
 type ProductFormProps = {
-  onSubmit: (values: ProductFormikProps) => Promise<void>;
+  onSubmit: (values: ProductFormikProps, image: any) => Promise<void>;
   product?: Product;
 };
 
@@ -23,13 +23,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit }) => {
     oldPrice: product?.oldPrice || undefined,
     price: product?.price || 1,
     count: product?.count || 0,
-    files: {
-      image: undefined,
-    },
   };
 
   const handleSubmit = async (values: ProductFormikProps) => {
-    await onSubmit({ ...values, files: { image } });
+    await onSubmit(values, image);
   };
 
   const onCancel = () => {

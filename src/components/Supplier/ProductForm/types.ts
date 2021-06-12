@@ -4,7 +4,4 @@ export type ProductFormikProps = {
   price: number;
   count: number;
   oldPrice?: number;
-  files: {
-    image?: File;
-  };
 };
