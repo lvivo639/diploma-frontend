@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from '@material-ui/core';
+import { Box, Button, Link, TextField, Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import errorToString from '../../../common/errorToString';
@@ -47,6 +47,12 @@ const NewslettersScreen: React.FC = () => {
           value={text}
           onChange={handleMsgTextChange}
         />
+        <Box py={1}>
+          <Typography variant="subtitle2">
+            Your message will receive all your subscribers in our telegram bot
+          </Typography>
+          <Link href="https://t.me/smartoverRobot">@smartoverRobot</Link>
+        </Box>
         <Box mt={2}>
           <Button
             variant="outlined"

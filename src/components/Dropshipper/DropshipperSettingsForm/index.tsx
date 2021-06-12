@@ -1,4 +1,13 @@
-import { Box, Button, TextField } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  Link,
+  OutlinedInput,
+  TextField,
+} from '@material-ui/core';
 import { Form, Formik, FormikProps } from 'formik';
 import React from 'react';
 import { DropshipperSetting } from './../../../common/types';
@@ -53,16 +62,23 @@ const DropshipperSettingsForm: React.FC<DropshipperSettingsFormProps> = ({
             </Box>
 
             <Box p={2}>
-              <TextField
-                variant="outlined"
-                fullWidth
-                label="Telegram Code"
-                value={dropshippersSettings?.telegramCode}
-                helperText={
-                  'Your telegram code. Send it to our bot from your telegram account so we can know it is you.'
-                }
-                disabled
-              />
+              <FormControl variant="outlined" fullWidth>
+                <InputLabel>Telegram Code</InputLabel>
+                <OutlinedInput
+                  label="Telegram Code"
+                  disabled
+                  value={dropshippersSettings?.telegramCode}
+                  fullWidth
+                />
+
+                <FormHelperText>
+                  Your telegram code. Send it to our bot{' '}
+                  <Link href="https://t.me/smartoverRobot">
+                    @smartoverRobot
+                  </Link>{' '}
+                  from your telegram account so we can know it is you.
+                </FormHelperText>
+              </FormControl>
             </Box>
 
             <Box p={2}>
