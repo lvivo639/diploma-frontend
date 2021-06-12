@@ -1,12 +1,14 @@
 import { Box, Button, CircularProgress, TextField } from '@material-ui/core';
 import { Form, Formik, FormikProps } from 'formik';
 import React from 'react';
+import getImageUrl from '../../../common/getImageUrl';
 import { SupplierSetting } from '../../../common/types';
 import { SupplierSettingsFormikProps } from './types';
+import useStyles from './useStyles';
 import validationSchema from './validationSchema';
 
 type SupplierSettingsFormProps = {
-  onSubmit: (values: SupplierSettingsFormikProps) => Promise<void>;
+  onSubmit: (values: SupplierSettingsFormikProps, image: any) => Promise<void>;
   onUniqueHashChange: () => Promise<void>;
   supplierSettings: SupplierSetting;
 };
@@ -16,7 +18,10 @@ const SupplierSettingsForm: React.FC<SupplierSettingsFormProps> = ({
   onSubmit,
   onUniqueHashChange,
 }) => {
+  const classes = useStyles();
+
   const [loading, setLoading] = React.useState(false);
+  const [image, setImage] = React.useState<File | undefined>(undefined);
 
   const initialValues: SupplierSettingsFormikProps = {
     storageName: supplierSettings?.storageName || '',
@@ -24,7 +29,7 @@ const SupplierSettingsForm: React.FC<SupplierSettingsFormProps> = ({
   };
 
   const handleSubmit = async (values: SupplierSettingsFormikProps) => {
-    await onSubmit(values);
+    await onSubmit(values, image);
   };
 
   const handleUniqueHashChange = async () => {
@@ -33,6 +38,7 @@ const SupplierSettingsForm: React.FC<SupplierSettingsFormProps> = ({
     setLoading(false);
   };
 
+  console.log(supplierSettings);
   return (
     <Formik
       initialValues={initialValues}
@@ -74,6 +80,24 @@ const SupplierSettingsForm: React.FC<SupplierSettingsFormProps> = ({
                 error={Boolean(touched.description && errors.description)}
                 multiline
                 rows={4}
+              />
+            </Box>
+
+            <Box p={2}>
+              {supplierSettings?.header?.url && (
+                <img
+                  src={getImageUrl(supplierSettings?.header?.url)}
+                  alt=""
+                  className={classes.media}
+                />
+              )}
+              <input
+                id="file"
+                name="file"
+                type="file"
+                onChange={(event) => {
+                  setImage(event.target?.files?.[0]);
+                }}
               />
             </Box>
 

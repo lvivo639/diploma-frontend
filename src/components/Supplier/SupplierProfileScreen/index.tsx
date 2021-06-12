@@ -21,6 +21,7 @@ const SupplierProfileScreen: React.FC = () => {
 
   const handleSupplierSettingsSubmit = async (
     values: SupplierSettingsFormikProps,
+    image: any,
   ) => {
     setLoading(true);
     setSnackbarText('');
@@ -28,6 +29,29 @@ const SupplierProfileScreen: React.FC = () => {
       await dispatch(
         sendRequest('post', `/supplier-settings/settings`, values),
       );
+
+      if (image && currentUser?.supplier_setting?.id) {
+        let formData = new FormData();
+        formData.append('files', image);
+        formData.append('ref', 'supplier-settings');
+        formData.append('refId', currentUser.supplier_setting.id.toString());
+        formData.append('field', 'header');
+
+        await dispatch(
+          sendRequest(
+            'post',
+            '/upload',
+            formData,
+            {},
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            },
+          ),
+        );
+      }
+
       await dispatch(getCurrentUser());
     } catch (e) {
       setSnackbarText(errorToString(e));
